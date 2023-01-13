@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Matrix
+﻿namespace Matrix
 {
     internal class Methods
     {
@@ -13,9 +11,9 @@ namespace Matrix
         public static void FillMatrixWithRandomNumbers(ref int[,] matrix, int min = int.MinValue, int max = int.MaxValue)
         {
             Random random = new();
-            for (int i = 0; i < matrix.GetLength(0); i++)
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                    matrix[i, j] = random.Next(min, max);
+            for (int row = 0; row < matrix.GetLength(0); row++)
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                    matrix[row, col] = random.Next(min, max);
         }
 
         /// <summary>
@@ -25,15 +23,15 @@ namespace Matrix
         /// <param name="textColor">Matrix content font color.</param>
         public static void PrintMatrix(int[,] matrix, ConsoleColor textColor = ConsoleColor.White)
         {
-            Console.WriteLine();
             Console.ForegroundColor = textColor;
-            for (int i = 0; i < matrix.GetLength(0); i++) 
+            for (int row = 0; row < matrix.GetLength(0); row++) 
             {
-                for (int j = 0; j < matrix.GetLength(1); j++) 
-                    Console.Write($"{matrix[i,j],7}");
                 Console.WriteLine();
+                for (int col = 0; col < matrix.GetLength(1); col++) 
+                    Console.Write($"{matrix[row,col],10}");
             }
             Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\n");
         }
 
         /// <summary>
@@ -57,6 +55,7 @@ namespace Matrix
         /// <returns><see langword="int"/>: Maximum duplicated value.</returns>
         public static int? GetMaxDuplicatedElement(int[,] matrix)
         {
+            // Group the matrix into a "dictionary", find duplicated elements and convert the group back to an enum.
             IEnumerable<int> duplicates = matrix.Cast<int>().GroupBy(e => e).Where(e => e.Count() > 1).SelectMany(e => e);
             if (duplicates.Any())
                 return duplicates.Max();
@@ -71,9 +70,9 @@ namespace Matrix
         public static int CountRowsWithoutZeros(int[,] matrix)
         {
             int count = matrix.GetLength(0);
-            for (int i = 0; i < matrix.GetLength(0); i++)
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                    if (matrix[i,j] == 0)
+            for (int row = 0; row < matrix.GetLength(0); row++)
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                    if (matrix[row,col] == 0)
                         { count--; break; }
             return count;
         }
@@ -86,11 +85,45 @@ namespace Matrix
         public static int CountColumnsWithZeros(int[,] matrix)
         {
             int count = 0;
-            for (int j = 0; j < matrix.GetLength(1); j++)
-                for (int i = 0; i < matrix.GetLength(0); i++)
-                    if (matrix[i,j] == 0)
+            for (int col = 0; col < matrix.GetLength(1); col++)
+                for (int row = 0; row < matrix.GetLength(0); row++)
+                    if (matrix[row,col] == 0)
                         { count++; break; }
             return count;
         }
+
+        /// <summary>
+        /// Returns the index of the row that has the most extended series of repeated elements in it.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns><see langword="int"/>: Index of the row.</returns>
+        public static int GetRowWithLongestSeries(int[,] matrix)
+        {
+            int maxSeries = 0, rowMax = 0;
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                int series = 0;
+                for (int col = 1; col < matrix.GetLength(1); col++)
+                    if (matrix[row, col] == matrix[row, col - 1])
+                        series++;
+                    else 
+                    {
+                        if (series > maxSeries)
+                        {
+                            maxSeries = series;
+                            rowMax = row;
+                        }
+                        series = 0;
+                    }
+                if (series > maxSeries)
+                {
+                    maxSeries = series;
+                    rowMax = row;
+                }
+            }
+            return rowMax;
+        }
+
+
     }
 }
