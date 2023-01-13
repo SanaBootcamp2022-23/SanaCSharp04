@@ -70,17 +70,27 @@ namespace Matrix
         /// <returns><see langword="int"/>: Rows count without 0.</returns>
         public static int CountRowsWithoutZeros(int[,] matrix)
         {
-            int count = 0;
-            for (int i = 0; i < matrix.GetLength(0); i++, count++)
+            int count = matrix.GetLength(0);
+            for (int i = 0; i < matrix.GetLength(0); i++)
                 for (int j = 0; j < matrix.GetLength(1); j++)
                     if (matrix[i,j] == 0)
-                    {
-                        count--;
-                        break;
-                    }
+                        { count--; break; }
             return count;
         }
 
-
+        /// <summary>
+        /// Returns count of columns that contain at least one zero value.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns><see langword="int"/>: Columns count with 0.</returns>
+        public static int CountColumnsWithZeros(int[,] matrix)
+        {
+            int count = 0;
+            for (int j = 0; j < matrix.GetLength(1); j++)
+                for (int i = 0; i < matrix.GetLength(0); i++)
+                    if (matrix[i,j] == 0)
+                        { count++; break; }
+            return count;
+        }
     }
 }
