@@ -62,5 +62,25 @@ namespace Matrix
                 return duplicates.Max();
             return null;
         }
+
+        /// <summary>
+        /// Returns count of rows that don't contain zero values.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns><see langword="int"/>: Rows count without 0.</returns>
+        public static int CountRowsWithoutZeros(int[,] matrix)
+        {
+            int count = 0;
+            for (int i = 0; i < matrix.GetLength(0); i++, count++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                    if (matrix[i,j] == 0)
+                    {
+                        count--;
+                        break;
+                    }
+            return count;
+        }
+
+
     }
 }
