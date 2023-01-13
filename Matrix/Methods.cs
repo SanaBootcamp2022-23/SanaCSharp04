@@ -1,4 +1,6 @@
-﻿namespace Matrix
+﻿using System.Linq;
+
+namespace Matrix
 {
     internal class Methods
     {
@@ -38,13 +40,27 @@
         /// Count positive elements in the matrix.
         /// </summary>
         /// <param name="matrix">The matrix.</param>
-        /// <returns>Count of positive elements (x>0).</returns>
+        /// <returns><see langword="int"/>: Count of positive elements (x > 0).</returns>
         public static int CountPositiveElements(int[,] matrix)
         {
             int count = 0;
             foreach (int element in matrix)
                 if (element > 0) count++;
             return count;
+        }
+
+        /// <summary>
+        /// <para>Returns maximum value from the matrix that appears at least twice.</para>
+        /// <para>If no duplicates are found returns <see langword="null"/>.</para>
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns><see langword="int"/>: Maximum duplicated value.</returns>
+        public static int? GetMaxDuplicatedElement(int[,] matrix)
+        {
+            IEnumerable<int> duplicates = matrix.Cast<int>().GroupBy(e => e).Where(e => e.Count() > 1).SelectMany(e => e);
+            if (duplicates.Any())
+                return duplicates.Max();
+            return null;
         }
     }
 }
