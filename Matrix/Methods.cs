@@ -52,7 +52,7 @@
         /// <para>If no duplicates are found returns <see langword="null"/>.</para>
         /// </summary>
         /// <param name="matrix">The matrix.</param>
-        /// <returns><see langword="int"/>: Maximum duplicated value.</returns>
+        /// <returns><see langword="int"/> Maximum duplicated value OR <see langword="null"/> if not found.</returns>
         public static int? GetMaxDuplicatedElement(int[,] matrix)
         {
             // Group the matrix into a "dictionary", find duplicated elements and convert the group back to an enum.
@@ -122,6 +122,37 @@
                 }
             }
             return rowMax;
+        }
+
+        /// <summary>
+        /// <para>Returns product of rows only containing positive elements.</para>
+        /// <para>If no rows are found returns <see langword="null"/>.</para>
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns><see langword="ulong"/> Product of elements OR <see langword="null"/> if not found.</returns>
+        public static ulong? GetPositiveRowProduct(int[,] matrix)
+        {
+            ulong? product = null;
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                ulong tProd = 1;
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                {
+                    if (matrix[row, col] > 0)
+                        tProd *= (ulong)matrix[row, col];
+                    else
+                    {
+                        tProd = 0;
+                        break;
+                    }
+                }
+                if (tProd > 0)
+                {
+                    product ??= 1;
+                    product *= tProd;
+                }
+            }
+            return product;
         }
 
 
