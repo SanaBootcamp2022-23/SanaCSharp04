@@ -263,7 +263,19 @@
             }
             return sum;
         }
+
+        /// <summary>
+        /// Transposes the provided matrix.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns><see langword="int[N,M]"/>: Transposed matrix.</returns>
+        public static int[,] TransposeMatrix(int[,] matrix)
+        {
+            int[,] transposedMatrix = new int[matrix.GetLength(1), matrix.GetLength(0)];
+            for (int row = 0; row < matrix.GetLength(0); row++)
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                    transposedMatrix[col, row] = matrix[row, col];
+            return transposedMatrix;
+        }
     }
-
-
 }

@@ -17,3 +17,5 @@ Console.WriteLine($"7) Максимум серед сум елементів д�
 Console.WriteLine($"8) Сума елементів в тих стовпцях, які не містять від’ємних елементів: {Methods.GetSumOfPositiveColumns(matrix)}");
 Console.WriteLine($"9) Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці: {Methods.GetMinSumAmongSideAbsParallelDiag(matrix)}");
 Console.WriteLine($"10) Сума елементів в тих стовпцях, які  містять хоча б один від’ємний елемент: {Methods.GetSumOfColumnsContainingNegatives(matrix)}");
+Console.WriteLine($"11) Транспонувати матрицю:");
+Methods.PrintMatrix(Methods.TransposeMatrix(matrix), ConsoleColor.Cyan);
