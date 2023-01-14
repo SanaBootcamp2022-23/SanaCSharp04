@@ -155,6 +155,29 @@
             return product;
         }
 
-
+        /// <summary>
+        /// Returns the maximum sum among sums of all diagonals parallel to the main diagonal not including it.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns><see langword="long"/>: Max sum.</returns>
+        public static long GetMaxSumAmongMainParallelDiag(int[,] matrix)
+        {
+            Stack<long> sums = new();
+            // Above main
+            for (int col = 1; col < matrix.GetLength(1); col++)
+            {
+                sums.Push(0);
+                for (int dRow = 0, dCol = col; dRow < matrix.GetLength(0) && dCol < matrix.GetLength(1); dRow++, dCol++)
+                    sums.Push(sums.Pop() + matrix[dRow, dCol]);
+            }
+            // Under main
+            for (int row = 1; row < matrix.GetLength(0); row++)
+            {
+                sums.Push(0);
+                for (int dCol = 0, dRow = row; dCol < matrix.GetLength(1) && dRow < matrix.GetLength(0); dCol++, dRow++)
+                    sums.Push(sums.Pop() + matrix[dRow, dCol]);
+            }
+            return sums.Max();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Matrix;
 
-const int N = 5, M = 5;
+const int N = 10, M = 2;
 int[,] matrix = new int[N, M];
 Methods.FillMatrixWithRandomNumbers(ref matrix, -32, 64);
 
@@ -13,3 +13,4 @@ Console.WriteLine($"3) Кількість рядків, які не містят
 Console.WriteLine($"4) Кількість стовпців, які містять хоча б один нульовий елемент: {Methods.CountColumnsWithZeros(matrix)}");
 Console.WriteLine($"5) Номер рядка, в якому знаходиться найдовша серія однакових елементів: {Methods.GetRowWithLongestSeries(matrix) + 1}");
 Console.WriteLine($"6) Добуток елементів в тих рядках, які не містять від’ємних елементів: {Methods.GetPositiveRowProduct(matrix)}");
+Console.WriteLine($"7) Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці: {Methods.GetMaxSumAmongMainParallelDiag(matrix)}");
