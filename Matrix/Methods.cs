@@ -179,5 +179,38 @@
             }
             return sums.Max();
         }
+
+        /// <summary>
+        /// <para>Returns sum of columns only containing positive elements.</para>
+        /// <para>If no columns are found returns <see langword="null"/>.</para>
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns><see langword="ulong"/> Sum of elements OR <see langword="null"/> if not found.</returns>
+        public static ulong? GetSumOfPositiveColumns(int[,] matrix)
+        {
+            ulong? sum = null;
+            for (int col = 0; col < matrix.GetLength(1); col++)
+            {
+                ulong tSum = 0;
+                for (int row = 0; row < matrix.GetLength(0); row++)
+                {
+                    if (matrix[row, col] > 0)
+                        tSum += (ulong)matrix[row, col];
+                    else
+                    {
+                        tSum = 0;
+                        break;
+                    }
+                }
+                if (tSum >0)
+                {
+                    sum ??= 0;
+                    sum += tSum;
+                }
+            }
+            return sum;
+        }
+
+
     }
 }
