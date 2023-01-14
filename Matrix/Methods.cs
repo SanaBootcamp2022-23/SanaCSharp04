@@ -236,6 +236,34 @@
             return sums.Min();
         }
 
-
+        /// <summary>
+        /// <para>Returns sum of columns containing at least one negative element.</para>
+        /// <para>If no columns are found returns <see langword="null"/>.</para>
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns><see langword="ulong"/> Sum of elements OR <see langword="null"/> if not found.</returns>
+        public static long? GetSumOfColumnsContainingNegatives(int[,] matrix)
+        {
+            long? sum = null;
+            for (int col = 0; col < matrix.GetLength(1); col++)
+            {
+                long tSum = 0;
+                bool containsNegative = false;
+                for (int row = 0; row < matrix.GetLength(0); row++)
+                {
+                    tSum += matrix[row, col];
+                    if (matrix[row, col] < 0)
+                        containsNegative = true;
+                }
+                if (containsNegative)
+                {
+                    sum ??= 0;
+                    sum += tSum;
+                }
+            }
+            return sum;
+        }
     }
+
+
 }
