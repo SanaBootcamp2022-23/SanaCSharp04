@@ -1,6 +1,6 @@
 ﻿using Matrix;
 
-const int N = 3, M = 5;
+const int N = 5, M = 3;
 int[,] matrix = new int[N, M];
 Methods.FillMatrixWithRandomNumbers(ref matrix, -32, 64);
 
@@ -15,3 +15,4 @@ Console.WriteLine($"5) Номер рядка, в якому знаходитьс
 Console.WriteLine($"6) Добуток елементів в тих рядках, які не містять від’ємних елементів: {Methods.GetPositiveRowProduct(matrix)}");
 Console.WriteLine($"7) Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці: {Methods.GetMaxSumAmongMainParallelDiag(matrix)}");
 Console.WriteLine($"8) Сума елементів в тих стовпцях, які не містять від’ємних елементів: {Methods.GetSumOfPositiveColumns(matrix)}");
+Console.WriteLine($"9) Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці: {Methods.GetMinSumAmongSideAbsParallelDiag(matrix)}");

@@ -211,6 +211,31 @@
             return sum;
         }
 
+        /// <summary>
+        /// Returns the minimum sum among sums of all diagonals parallel to the side diagonal not including it.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns><see langword="ulong"/>: Min sum.</returns>
+        public static long GetMinSumAmongSideAbsParallelDiag(int[,] matrix)
+        {
+            Stack<long> sums = new();
+            // Above side
+            for (int col = matrix.GetLength(1) - 2; col >= 0; col--)
+            {
+                sums.Push(0);
+                for (int dRow = 0, dCol = col; dRow < matrix.GetLength(0) && dCol >= 0; dRow++, dCol--)
+                    sums.Push(sums.Pop() + Math.Abs(matrix[dRow, dCol]));
+            }
+            // Under side
+            for (int row = 1; row < matrix.GetLength(0); row++)
+            {
+                sums.Push(0);
+                for (int dCol = matrix.GetLength(1) - 1, dRow = row; dCol >= 0 && dRow < matrix.GetLength(0); dRow++, dCol--)
+                    sums.Push(sums.Pop() + Math.Abs(matrix[dRow, dCol]));
+            }
+            return sums.Min();
+        }
+
 
     }
 }
