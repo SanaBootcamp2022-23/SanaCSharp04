@@ -33,29 +33,20 @@ public class Program {
         Console.WriteLine($"5. Row {rowWithLongestContiniusSeries} (zero based)" + 
                 " has the longest continius series of elements");
 
-        Dictionary<int, int> rowsProducts = MatrixUtils.ProductsOfPositiveRows(matrix);
-        Console.WriteLine("6. Products of rows without negative elements");
-        foreach (KeyValuePair<int, int> rowProduct in rowsProducts) {
-            Console.WriteLine($"    {rowProduct.Key} -> {rowProduct.Value}");
-        }
+        int rowsProduct = MatrixUtils.ProductOfPositiveRows(matrix);
+        Console.WriteLine($"6. Products of rows without negative elements is {rowsProduct}");
 
         int maxSumOfMainDiagonal = MatrixUtils.MaxSumMainDiagonal(matrix);
         Console.WriteLine($"7. Max sum of diagonal that is parallel to main is {maxSumOfMainDiagonal}");
 
-        Dictionary<int, int> colsSums = MatrixUtils.SumOfPositiveCols(matrix);
-        Console.WriteLine("8. Sums of cols without negative elements");
-        foreach (KeyValuePair<int, int> colSum in colsSums) {
-            Console.WriteLine($"    {colSum.Key} -> {colSum.Value}");
-        }
+        int colsSum = MatrixUtils.SumOfPositiveCols(matrix);
+        Console.WriteLine($"8. Sums of cols without negative elements is {colsSum}");
 
-        int minSumOfAntidiagonal = MatrixUtils.MinSumAntidiagonal(matrix);
-        Console.WriteLine($"9. Min sum of diagonal that is parallel to antidiagonal is {minSumOfAntidiagonal}");
+        int minSumAbsOfAntidiagonal = MatrixUtils.MinSumAbsAntidiagonal(matrix);
+        Console.WriteLine($"9. Min sum of diagonal's asbolute values that is parallel to antidiagonal is {minSumAbsOfAntidiagonal}");
 
-        Dictionary<int, int> negativeColsSums = MatrixUtils.SumOfNegativeCols(matrix);
-        Console.WriteLine("10. Sums of cols with negative elements");
-        foreach (KeyValuePair<int, int> colSum in negativeColsSums) {
-            Console.WriteLine($"    {colSum.Key} -> {colSum.Value}");
-        }
+        int negativeColsSum = MatrixUtils.SumOfNegativeCols(matrix);
+        Console.WriteLine($"10. Sums of cols with negative elements is {negativeColsSum}");
 
         int[,] transposedMatrix = MatrixUtils.TransposeMatrix(matrix);
         Console.WriteLine("11. Tranposed matrix: ");

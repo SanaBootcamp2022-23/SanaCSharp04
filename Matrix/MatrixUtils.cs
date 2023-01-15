@@ -100,15 +100,15 @@ public static class MatrixUtils {
         return maxLong;
     }
 
-    public static Dictionary<int, int> ProductsOfPositiveRows(int[,] matrix) {
-        Dictionary<int, int> rowsProducts = new Dictionary<int, int>();
+    public static int ProductOfPositiveRows(int[,] matrix) {
+        int rowsProduct = 1;
 
         for (int rowIndex = 0; rowIndex < matrix.GetLength(0); ++rowIndex) {
             IEnumerable<int> row = GetRow(matrix, rowIndex);
             if (row.Count(number => number < 0) == 0) 
-                rowsProducts.Add(rowIndex, row.Aggregate(1, (a, b) => a * b));
+                rowsProduct *= row.Aggregate(1, (a, b) => a * b);
         }
-        return rowsProducts;
+        return rowsProduct;
     }
 
     public static int MaxSumMainDiagonal(int[,] matrix) {
@@ -127,26 +127,26 @@ public static class MatrixUtils {
         return maxSum;
     }
 
-    public static Dictionary<int, int> SumOfPositiveCols(int[,] matrix) {
-        Dictionary<int, int> colsSums = new Dictionary<int, int>();
+    public static int SumOfPositiveCols(int[,] matrix) {
+        int colsSums = 0;
 
         for (int colIndex = 0; colIndex < matrix.GetLength(1); ++colIndex) {
             IEnumerable<int> col = GetColumn(matrix, colIndex);
             if (col.Count(number => number < 0) == 0) 
-                colsSums.Add(colIndex, col.Aggregate(0, (a, b) => a + b));
+                colsSums += col.Aggregate(0, (a, b) => a + b);
         }
         return colsSums;
     }
 
-    public static int MinSumAntidiagonal(int[,] matrix) {
+    public static int MinSumAbsAntidiagonal(int[,] matrix) {
         int rows = matrix.GetLength(0), cols = matrix.GetLength(1);
         int minSum = int.MaxValue;
 
-        for (int j = cols + (rows - 1); j >= 0; --j) {
+        for (int j = cols + rows - 2; j >= 0; --j) {
             int currentSum = 0;
             for (int i = 0; i < rows; ++i) {
                 if (i >= 0 && i < rows && (j - i) >= 0 && (j - i) < cols) 
-                    currentSum += matrix[i, j - i];
+                    currentSum += Math.Abs(matrix[i, j - i]);
             }
             minSum = Math.Min(currentSum, minSum);
             currentSum = 0;
@@ -154,13 +154,13 @@ public static class MatrixUtils {
         return minSum;
     }
 
-    public static Dictionary<int, int> SumOfNegativeCols(int[,] matrix) {
-        Dictionary<int, int> colsSums = new Dictionary<int, int>();
+    public static int SumOfNegativeCols(int[,] matrix) {
+        int colsSums = 0;
 
         for (int colIndex = 0; colIndex < matrix.GetLength(1); ++colIndex) {
             IEnumerable<int> col = GetColumn(matrix, colIndex);
             if (col.Count(number => number < 0) > 0) 
-                colsSums.Add(colIndex, col.Aggregate(0, (a, b) => a + b));
+                colsSums += col.Aggregate(0, (a, b) => a + b);
         }
         return colsSums;
     }
