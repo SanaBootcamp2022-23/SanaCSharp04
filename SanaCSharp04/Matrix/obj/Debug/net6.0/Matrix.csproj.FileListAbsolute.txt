@@ -1,0 +1,15 @@
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\obj\Debug\net6.0\Matrix.csproj.AssemblyReference.cache
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\obj\Debug\net6.0\Matrix.GeneratedMSBuildEditorConfig.editorconfig
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\obj\Debug\net6.0\Matrix.AssemblyInfoInputs.cache
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\obj\Debug\net6.0\Matrix.AssemblyInfo.cs
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\obj\Debug\net6.0\Matrix.csproj.CoreCompileInputs.cache
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\bin\Debug\net6.0\Matrix.exe
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\bin\Debug\net6.0\Matrix.deps.json
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\bin\Debug\net6.0\Matrix.runtimeconfig.json
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\bin\Debug\net6.0\Matrix.dll
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\bin\Debug\net6.0\Matrix.pdb
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\obj\Debug\net6.0\Matrix.dll
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\obj\Debug\net6.0\refint\Matrix.dll
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\obj\Debug\net6.0\Matrix.pdb
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\obj\Debug\net6.0\Matrix.genruntimeconfig.cache
+D:\Політех\Sana\SanaCSharp04\SanaCSharp04\Matrix\obj\Debug\net6.0\ref\Matrix.dll
