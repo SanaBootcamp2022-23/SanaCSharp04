@@ -61,31 +61,61 @@ int[,] array = new int[countRow, countCol];
 int [] arrayAddition = new int[countRow*countCol];
 
 
-//Filling array
+//Filling matrix
 for(int i = 0;i< countRow; i++)
 {
     for(int j = 0; j< countCol; j++)
     {
         array[i,j] = random.Next(bottomDegre, topDegre + 1);
-        Console.WriteLine(array[i,j]);
     }
 }
-
-
+//Print matrix and finding count positiv elements
 int countPositivElem = 0;
-// Array operations
 for (int i = 0; i < countRow; i++)
 {
     for (int j = 0; j < countCol; j++)
     {
-       if(array[i,j] > 0)
-       {
+        if (array[i, j] > 0)
+        {
             countPositivElem++;
+        }
+        Console.Write($"{array[i, j],5}");
+    }
+    Console.WriteLine('\n');
+}
+
+//кількість рядків, які не містять жодного нульового елемента;
+//кількість стовпців, які містять хоча б один нульовий елемент;
+
+
+
+int countRowsWithoutZero = countRow;
+
+//Count rows without zero element
+for (int i = 0; i < countRow; i++)
+{
+    for (int j = 0; j < countCol; j++)
+    {
+       if(array[i,j] ==0)
+       {
+           countRowsWithoutZero--;
+           break;
        }
     }
 }
-Console.WriteLine($"Кількість додатних елементів масиву -> {countPositivElem}");
-
+// Count columns that have one or more zero elements
+int countColWithZero = 0;
+for (int i = 0; i < countRow; i++)
+{
+    for (int j = 0; j < countCol; j++)
+    {
+        if (array[j, i] == 0)
+        {
+            countColWithZero++;
+            break;
+        }
+    }
+}
 
 int? maxElemMoreTwoPoints = null;
 int countElem = 0;
@@ -119,6 +149,12 @@ for (int p = 0; p < countRow; p++)
         }
     }
 }
+
+
+
+
+
+Console.WriteLine($"Кількість додатних елементів масиву -> {countPositivElem}");
 if (maxElemMoreTwoPoints == null)
 {
     Console.WriteLine("В масиві відсутні числа які повторюються більше одного разу!");
@@ -127,3 +163,5 @@ else {
 
     Console.WriteLine($"Максимальне із чисел, що зустрічається в заданій матриці більше одного разу -> {maxElemMoreTwoPoints}");
 }
+Console.WriteLine($"Кількість рядків, які не містять жодного нульового елемента -> {countRowsWithoutZero}");
+Console.WriteLine($"Кількість стовпців, які містять хоча б один нульовий елемент -> {countColWithZero}");
