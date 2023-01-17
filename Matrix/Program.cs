@@ -57,8 +57,8 @@ do
 } while (!Ok4 || topDegre < bottomDegre);
 
 
-double[,] array = new double[countRow, countCol];
-
+int[,] array = new int[countRow, countCol];
+int [] arrayAddition = new int[countRow*countCol];
 
 
 //Filling array
@@ -67,6 +67,7 @@ for(int i = 0;i< countRow; i++)
     for(int j = 0; j< countCol; j++)
     {
         array[i,j] = random.Next(bottomDegre, topDegre + 1);
+        Console.WriteLine(array[i,j]);
     }
 }
 
@@ -78,8 +79,51 @@ for (int i = 0; i < countRow; i++)
     for (int j = 0; j < countCol; j++)
     {
        if(array[i,j] > 0)
-        {
+       {
             countPositivElem++;
+       }
+    }
+}
+Console.WriteLine($"Кількість додатних елементів масиву -> {countPositivElem}");
+
+
+int? maxElemMoreTwoPoints = null;
+int countElem = 0;
+
+for (int p = 0; p < countRow; p++)
+{
+    
+    for (int k = 0; k < countCol; k++)
+    {
+        countElem = 0;
+        for (int i = 0; i < countRow; i++)
+        {
+            for (int j = 0; j < countCol; j++)
+            {
+                if (array[p, k] == array[i, j])
+                {
+                    countElem++;
+                }
+
+                if (countElem > 1)
+                {
+                    if(maxElemMoreTwoPoints == null)
+                    {
+                        maxElemMoreTwoPoints = array[p, k];
+                    }else if(maxElemMoreTwoPoints< array[p, k])
+                    {
+                        maxElemMoreTwoPoints = array[p, k];
+                    }
+                } 
+            }
         }
     }
+}
+if (maxElemMoreTwoPoints == null)
+{
+    Console.WriteLine("В масиві відсутні числа які повторюються більше одного разу!");
+}
+else { 
+
+    Console.WriteLine($"Максимальне із чисел, що зустрічається в заданій матриці більше одного разу -> {maxElemMoreTwoPoints}");
 }
