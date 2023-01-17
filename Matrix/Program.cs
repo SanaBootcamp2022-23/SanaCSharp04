@@ -56,21 +56,30 @@ do
     }
 } while (!Ok4 || topDegre < bottomDegre);
 
-double[] array = new double[countCol*countRow];
+
+double[,] array = new double[countRow, countCol];
 
 
 
-
-int countPositivElem = 0;
-
-for(int i = 0;i< array.Length; i++)
+//Filling array
+for(int i = 0;i< countRow; i++)
 {
-    array[i] = random.Next(bottomDegre, topDegre + 1);
-    if (array[i] > 0)
+    for(int j = 0; j< countCol; j++)
     {
-        countPositivElem++;
+        array[i,j] = random.Next(bottomDegre, topDegre + 1);
     }
 }
 
 
-
+int countPositivElem = 0;
+// Array operations
+for (int i = 0; i < countRow; i++)
+{
+    for (int j = 0; j < countCol; j++)
+    {
+       if(array[i,j] > 0)
+        {
+            countPositivElem++;
+        }
+    }
+}
