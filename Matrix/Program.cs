@@ -84,11 +84,6 @@ for (int i = 0; i < countRow; i++)
     Console.WriteLine('\n');
 }
 
-//кількість рядків, які не містять жодного нульового елемента;
-//кількість стовпців, які містять хоча б один нульовий елемент;
-
-
-
 int countRowsWithoutZero = countRow;
 
 //Count rows without zero element
@@ -120,9 +115,11 @@ for (int i = 0; i < countRow; i++)
 int? maxElemMoreTwoPoints = null;
 int countElem = 0;
 
+// Max number that is in matrix more than one point
+
+
 for (int p = 0; p < countRow; p++)
 {
-    
     for (int k = 0; k < countCol; k++)
     {
         countElem = 0;
@@ -150,6 +147,60 @@ for (int p = 0; p < countRow; p++)
     }
 }
 
+//номер рядка, в якому знаходиться найдовша серія однакових елементів;
+//int countElemRepeatInRows = 0;
+//int[,] arrayCountRepeatElemInRows = new int[countRow, countCol];
+
+//for (int p = 0; p < countRow; p++)
+//{
+//    for (int k = 0; k < countCol; k++)
+//    {
+//        countElemRepeatInRows = 0;
+//        for (int i = 0; i < countCol; i++)
+//        {
+
+//            if(array[p, k] == array[p, i])
+//            {
+//                countElemRepeatInRows++;
+//            }
+
+//        }
+//        arrayCountRepeatElemInRows[p,k] = countElemRepeatInRows;
+//    }
+//}
+
+//for (int i = 0; i < countRow; i++)
+//{
+//    for (int j = 0; j < countCol; j++)
+//    {
+
+//    }
+
+//}
+
+
+//The multiplication of the elements in those rows that do not contain negative elements;
+int?[] arrayMultipleEachRow = new int?[countRow];
+int? multipleValue = 1;
+for (int i = 0; i < countRow; i++)
+{
+    multipleValue = 1;
+    for (int j = 0; j < countCol; j++)
+    {
+        if(array[i, j] >= 0)
+        {
+            multipleValue *= array[i, j];
+        }
+        else
+        {
+            multipleValue = null;
+            break;
+        }
+    }
+    arrayMultipleEachRow[i]=multipleValue;
+}
+
+//максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці;
 
 
 
@@ -165,3 +216,11 @@ else {
 }
 Console.WriteLine($"Кількість рядків, які не містять жодного нульового елемента -> {countRowsWithoutZero}");
 Console.WriteLine($"Кількість стовпців, які містять хоча б один нульовий елемент -> {countColWithZero}");
+
+for(int i = 0; i < arrayMultipleEachRow.Length; i++)
+{
+    if (arrayMultipleEachRow[i] != null)
+    {
+        Console.WriteLine($"Добуток елементів {i+1} рядка матриці -> {arrayMultipleEachRow[i]}");
+    }
+}
