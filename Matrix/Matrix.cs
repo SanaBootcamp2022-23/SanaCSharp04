@@ -178,6 +178,9 @@ namespace Matrix
         {
             var (rows, cols) = MatrixSize(matrix);
 
+            if (rows == 1 && cols == 1)
+                return 0;
+
             Stack<int> sums = new();
 
             // Above main diagonal
@@ -216,6 +219,9 @@ namespace Matrix
         public static int MinAbsSumAmongSecondaryParallelDiagonals(int[,] matrix)
         {
             var (rows, cols) = MatrixSize(matrix);
+
+            if (rows == 1 && cols == 1)
+                return 0;
 
             Stack<int> sums = new();
 
