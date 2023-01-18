@@ -257,7 +257,7 @@ for (int i = 0; i < countCol; i++)
 //Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці;
 
 
-//the sum of elements in those columns that contain at least one negative element;
+//The sum of elements in those columns that contain at least one negative element;
 int?[] arraySumElement= new int?[countCol];
 int? sumValueCol = 0;
 bool hasNegativElem = false;
@@ -285,31 +285,52 @@ for (int i = 0; i < countCol; i++)
 }
 
 
+//transpose the matrix
+int[] arrayAdditionElement = new int[countCol*countRow];
+int f = 0;
+for (int i = 0; i < countRow; i++)
+{
+    for (int j = 0; j < countCol; j++)
+    {
+        arrayAdditionElement[f]=array[i, j];
+       f++;
+    }
+}
+
+int[,] matrixTransparent = new int[countCol, countRow];
+f = 0;
+for (int i = 0; i < countCol; i++)
+{
+    for (int j = 0; j < countRow; j++)
+    {
+        matrixTransparent[j, i] = arrayAdditionElement[f];
+            f++;
+    }
+}
 
 
-//транспоновану матрицю
 
 
-
-
+//Print result
 
 Console.WriteLine($"Кількість додатних елементів масиву -> {countPositivElem}");
 if (maxElemMoreTwoPoints == null)
 {
     Console.WriteLine("В масиві відсутні числа які повторюються більше одного разу!");
 }
-else { 
+else
+{
 
     Console.WriteLine($"Максимальне із чисел, що зустрічається в заданій матриці більше одного разу -> {maxElemMoreTwoPoints}");
 }
 Console.WriteLine($"Кількість рядків, які не містять жодного нульового елемента -> {countRowsWithoutZero}");
 Console.WriteLine($"Кількість стовпців, які містять хоча б один нульовий елемент -> {countColWithZero}");
 
-for(int i = 0; i < arrayMultipleEachRow.Length; i++)
+for (int i = 0; i < arrayMultipleEachRow.Length; i++)
 {
     if (arrayMultipleEachRow[i] != null)
     {
-        Console.WriteLine($"Добуток елементів {i+1} рядка матриці -> {arrayMultipleEachRow[i]}");
+        Console.WriteLine($"Добуток елементів {i + 1} рядка матриці -> {arrayMultipleEachRow[i]}");
     }
 }
 
@@ -327,4 +348,13 @@ for (int i = 0; i < arraySumElement.Length; i++)
     {
         Console.WriteLine($"Сума елементів {i + 1} стовпця який містить хоча б один від'ємний елемент -> {arraySumElement[i]}");
     }
+}
+
+for (int i = 0; i < matrixTransparent.GetLength(0); i++)
+{
+    for (int j = 0; j < matrixTransparent.GetLength(1); j++)
+    {
+        Console.Write($"{matrixTransparent[i, j],5}");
+    }
+    Console.WriteLine('\n');
 }
