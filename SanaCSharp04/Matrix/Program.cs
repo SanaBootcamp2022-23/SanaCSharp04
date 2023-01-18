@@ -47,9 +47,40 @@ namespace Matrix
             var matrixOperations = new MatrixOperations.MatrixOperations(matrix);
 
             var positiveElements = matrixOperations.GetCountOfPositiveElements();
+            var maxOfRepeatNumbers = matrixOperations.GetMaxOfRepeatNumbers();
+            var countOfRowsWithoutZeroElements = matrixOperations.GetCountOfRowsWithoutZeroElements();
+            var countOfColumnsWithZeroElements = matrixOperations.GetCountOfColumnsWithZeroElements();
+            var rowIdWithMaxSeriesSameElements = matrixOperations.FindRowIdWithMaxSeriesSameElements();
+            var productsInRowsWithoutNegativeElements =
+                matrixOperations.GetProductElementsInRowWithoutNegativeElements();
 
             Console.WriteLine("RESULTS:");
             Console.WriteLine($"\n1) Count of positive elements: {positiveElements}");
+
+            Console.WriteLine(maxOfRepeatNumbers != null
+                ? $"\n2) Maximum number that occurs in the given matrix more than once: {maxOfRepeatNumbers}"
+                : "\n2) Maximum number that occurs in the given matrix more than once: Elements are not repeated");
+
+            Console.WriteLine($"\n3) Count of rows without zero elements: {countOfRowsWithoutZeroElements}");
+            Console.WriteLine($"\n4) Count of columns with zero elements: {countOfColumnsWithZeroElements}");
+
+            Console.WriteLine(rowIdWithMaxSeriesSameElements == -1
+                ? $"\n5) Number of row with maximum series same elements: No row with a series of same elements"
+                : $"\n5) Number of row with maximum series same elements: {rowIdWithMaxSeriesSameElements + 1}");
+
+            if (productsInRowsWithoutNegativeElements.Count > 0)
+            {
+                Console.WriteLine("\n6) Products in rows without negative elements:");
+
+                foreach (var product in productsInRowsWithoutNegativeElements)
+                {
+                    Console.WriteLine($"\t\t\t\t\tRow = {product.Key + 1} Product = {product.Value}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n6) Products in rows without negative elements: No rows without negative elements");
+            }
         }
 
         private static void FillUserMatrix(int[,] matrix)
