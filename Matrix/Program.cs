@@ -84,39 +84,9 @@ for (int i = 0; i < countRow; i++)
     Console.WriteLine('\n');
 }
 
-int countRowsWithoutZero = countRow;
-
-//Count rows without zero element
-for (int i = 0; i < countRow; i++)
-{
-    for (int j = 0; j < countCol; j++)
-    {
-       if(array[i,j] ==0)
-       {
-           countRowsWithoutZero--;
-           break;
-       }
-    }
-}
-
-// Count columns that have one or more zero elements
-int countColWithZero = 0;
-for (int i = 0; i < countRow; i++)
-{
-    for (int j = 0; j < countCol; j++)
-    {
-        if (array[j, i] == 0)
-        {
-            countColWithZero++;
-            break;
-        }
-    }
-}
-
+// Max number that is in matrix more than one point
 int? maxElemMoreTwoPoints = null;
 int countElem = 0;
-
-// Max number that is in matrix more than one point
 
 for (int p = 0; p < countRow; p++)
 {
@@ -134,18 +104,49 @@ for (int p = 0; p < countRow; p++)
 
                 if (countElem > 1)
                 {
-                    if(maxElemMoreTwoPoints == null)
-                    {
-                        maxElemMoreTwoPoints = array[p, k];
-                    }else if(maxElemMoreTwoPoints< array[p, k])
+                    if (maxElemMoreTwoPoints == null)
                     {
                         maxElemMoreTwoPoints = array[p, k];
                     }
-                } 
+                    else if (maxElemMoreTwoPoints < array[p, k])
+                    {
+                        maxElemMoreTwoPoints = array[p, k];
+                    }
+                }
             }
         }
     }
 }
+
+
+//Count rows without zero element
+int countRowsWithoutZero = countRow;
+for (int i = 0; i < array.GetLength(0); i++)
+{
+    for (int j = 0; j < array.GetLength(1); j++)
+    {
+       if(array[i,j] ==0)
+       {
+           countRowsWithoutZero--;
+           break;
+       }
+    }
+}
+
+// Count columns that have one or more zero elements
+int countColWithZero = 0;
+for (int i = 0; i < array.GetLength(0); i++)
+{
+    for (int j = 0; j < array.GetLength(1); j++)
+    {
+        if (array[j, i] == 0)
+        {
+            countColWithZero++;
+            break;
+        }
+    }
+}
+
 
 //номер рядка, в якому знаходиться найдовша серія однакових елементів;
 //int countElemRepeatInRows = 0;
@@ -182,10 +183,10 @@ for (int p = 0; p < countRow; p++)
 //The multiplication of the elements in those rows that do not contain negative elements;
 int?[] arrayMultipleEachRow = new int?[countRow];
 int? multipleValue = 1;
-for (int i = 0; i < countRow; i++)
+for (int i = 0; i < array.GetLength(0); i++)
 {
     multipleValue = 1;
-    for (int j = 0; j < countCol; j++)
+    for (int j = 0; j < array.GetLength(1); j++)
     {
         if(array[i, j] >= 0)
         {
@@ -221,23 +222,14 @@ for (int i = 0; i < countRow; i++)
 //}
 
 
-
-
-
-
-
-
-
-
-
 //The sum of elements in those columns that do not contain negative elements;
 
 int?[] arraySumEachRow = new int?[countCol];
 int? sumValue = 0;
-for (int i = 0; i < countCol; i++)
+for (int i = 0; i < array.GetLength(1); i++)
 {
    sumValue = 0;
-    for (int j = 0; j < countRow; j++)
+    for (int j = 0; j < array.GetLength(0); j++)
     {
         if (array[j, i] >= 0)
         {
@@ -261,7 +253,7 @@ for (int i = 0; i < countCol; i++)
 int?[] arraySumElement= new int?[countCol];
 int? sumValueCol = 0;
 bool hasNegativElem = false;
-for (int i = 0; i < countCol; i++)
+for (int i = 0; i < array.GetLength(1); i++)
 {
     hasNegativElem = false;
     sumValueCol = 0;
@@ -288,20 +280,20 @@ for (int i = 0; i < countCol; i++)
 //transpose the matrix
 int[] arrayAdditionElement = new int[countCol*countRow];
 int f = 0;
-for (int i = 0; i < countRow; i++)
+for (int i = 0; i < array.GetLength(0); i++)
 {
-    for (int j = 0; j < countCol; j++)
+    for (int j = 0; j < array.GetLength(1); j++)
     {
         arrayAdditionElement[f]=array[i, j];
        f++;
     }
 }
 
-int[,] matrixTransparent = new int[countCol, countRow];
+int[,] matrixTransparent = new int[array.GetLength(1), array.GetLength(0)];
 f = 0;
-for (int i = 0; i < countCol; i++)
+for (int i = 0; i < array.GetLength(1); i++)
 {
-    for (int j = 0; j < countRow; j++)
+    for (int j = 0; j < array.GetLength(0); j++)
     {
         matrixTransparent[j, i] = arrayAdditionElement[f];
             f++;
@@ -314,6 +306,7 @@ for (int i = 0; i < countCol; i++)
 //Print result
 
 Console.WriteLine($"Кількість додатних елементів масиву -> {countPositivElem}");
+
 if (maxElemMoreTwoPoints == null)
 {
     Console.WriteLine("В масиві відсутні числа які повторюються більше одного разу!");
@@ -323,14 +316,16 @@ else
 
     Console.WriteLine($"Максимальне із чисел, що зустрічається в заданій матриці більше одного разу -> {maxElemMoreTwoPoints}");
 }
+
 Console.WriteLine($"Кількість рядків, які не містять жодного нульового елемента -> {countRowsWithoutZero}");
+
 Console.WriteLine($"Кількість стовпців, які містять хоча б один нульовий елемент -> {countColWithZero}");
 
 for (int i = 0; i < arrayMultipleEachRow.Length; i++)
 {
     if (arrayMultipleEachRow[i] != null)
     {
-        Console.WriteLine($"Добуток елементів {i + 1} рядка матриці -> {arrayMultipleEachRow[i]}");
+        Console.WriteLine($"Добуток елементів {i + 1} рядка матриці, який не містить від'ємних елементів -> {arrayMultipleEachRow[i]}");
     }
 }
 
