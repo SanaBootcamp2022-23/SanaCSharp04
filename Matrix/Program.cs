@@ -202,6 +202,71 @@ for (int i = 0; i < countRow; i++)
 
 //максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці;
 
+//int maxSumElemDiagonale = array[0, array.GetLength(1) - 1];
+//int countParallelDiagonaleInArray = array.GetLength(0) - 1 + array.GetLength(1)-1;
+
+
+//for(int p = 0;p< countParallelDiagonaleInArray; p++)
+//{
+//    for (int i = 0; i < array.GetLength(0); i++)
+//    {
+//        for (int j = 0; j < array.GetLength(1); j++)
+//        {
+//            if (i != j)
+//            {
+//               if()
+//            }
+//        }
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
+
+//The sum of elements in those columns that do not contain negative elements;
+
+int?[] arraySumEachRow = new int?[countCol];
+int? sumValue = 0;
+for (int i = 0; i < countCol; i++)
+{
+   sumValue = 0;
+    for (int j = 0; j < countRow; j++)
+    {
+        if (array[j, i] >= 0)
+        {
+            sumValue += array[j, i];
+        }
+        else
+        {
+            sumValue = null;
+            break;
+        }
+    }
+    arraySumEachRow[i] = sumValue;
+}
+
+
+
+
+
+
+
+
+
+
+
+//мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці;
+//суму елементів в тих стовпцях, які  містять хоча б один від’ємний елемент;
+//транспоновану матрицю
+
+
 
 
 
@@ -222,5 +287,13 @@ for(int i = 0; i < arrayMultipleEachRow.Length; i++)
     if (arrayMultipleEachRow[i] != null)
     {
         Console.WriteLine($"Добуток елементів {i+1} рядка матриці -> {arrayMultipleEachRow[i]}");
+    }
+}
+
+for (int i = 0; i < arraySumEachRow.Length; i++)
+{
+    if (arraySumEachRow[i] != null)
+    {
+        Console.WriteLine($"Сума елементів {i + 1} стовпця матриці який не містить від'ємний елемент -> {arraySumEachRow[i]}");
     }
 }
