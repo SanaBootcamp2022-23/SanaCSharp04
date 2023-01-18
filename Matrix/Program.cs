@@ -98,6 +98,7 @@ for (int i = 0; i < countRow; i++)
        }
     }
 }
+
 // Count columns that have one or more zero elements
 int countColWithZero = 0;
 for (int i = 0; i < countRow; i++)
@@ -116,7 +117,6 @@ int? maxElemMoreTwoPoints = null;
 int countElem = 0;
 
 // Max number that is in matrix more than one point
-
 
 for (int p = 0; p < countRow; p++)
 {
@@ -254,16 +254,39 @@ for (int i = 0; i < countCol; i++)
 
 
 
+//Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці;
+
+
+//the sum of elements in those columns that contain at least one negative element;
+int?[] arraySumElement= new int?[countCol];
+int? sumValueCol = 0;
+bool hasNegativElem = false;
+for (int i = 0; i < countCol; i++)
+{
+    hasNegativElem = false;
+    sumValueCol = 0;
+    for (int j = 0; j < countRow; j++)
+    {
+        if (array[j, i] < 0)
+        {
+            hasNegativElem = true;
+        }
+        sumValueCol += array[j, i];
+    }
+    if (hasNegativElem == true)
+    {
+        arraySumElement[i] = sumValueCol;
+    }
+    else
+    {
+        arraySumElement[i] = null;
+    }
+    
+}
 
 
 
 
-
-
-
-
-//мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці;
-//суму елементів в тих стовпцях, які  містять хоча б один від’ємний елемент;
 //транспоновану матрицю
 
 
@@ -295,5 +318,13 @@ for (int i = 0; i < arraySumEachRow.Length; i++)
     if (arraySumEachRow[i] != null)
     {
         Console.WriteLine($"Сума елементів {i + 1} стовпця матриці який не містить від'ємний елемент -> {arraySumEachRow[i]}");
+    }
+}
+
+for (int i = 0; i < arraySumElement.Length; i++)
+{
+    if (arraySumElement[i] != null)
+    {
+        Console.WriteLine($"Сума елементів {i + 1} стовпця який містить хоча б один від'ємний елемент -> {arraySumElement[i]}");
     }
 }
