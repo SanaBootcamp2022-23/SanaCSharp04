@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.Metrics;
+using System.Numerics;
 using System.Text;
 
 System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)
@@ -16,9 +17,65 @@ PrintMatrix(matrix);
 FindCountOfPositiveElems(matrix);
 FindMaximumRepeatedNum(matrix);
 CountingNonNullRows(matrix);
+CountNullColumns(matrix);
+FindLongestSeries(matrix);
 Console.ReadLine();
 
+void FindLongestSeries(int[,] matrix)
+{
+    int longestSeries = 0;
+    int rowWithLongestSeries = 0;
 
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        int currentSeries = 1;
+        for (int j = 0; j < matrix.GetLength(1) - 1; j++)
+        {
+            if (matrix[i, j] == matrix[i, j + 1])
+            {
+                currentSeries++;
+            }
+            else
+            {
+                if (currentSeries > longestSeries)
+                {
+                    longestSeries = currentSeries;
+                    rowWithLongestSeries = i;
+                }
+                currentSeries = 1;
+            }
+        }
+        if (currentSeries > longestSeries)
+        {
+            longestSeries = currentSeries;
+            rowWithLongestSeries = i;
+        }
+    }
+    Console.WriteLine($"Найдовша серія однакових чисел: {longestSeries}, в рядку {rowWithLongestSeries + 1} ");
+}
+void CountNullColumns(int[,] matrix)
+{
+    int NullColumns = 0;
+
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        bool isThereNull = false;
+
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            if (matrix[j, i] == 0)
+            {
+                isThereNull = true;
+                break;
+            }
+        }
+        if (isThereNull)
+        {
+            NullColumns++;
+        }
+    }
+    Console.WriteLine($"Стовпців з 0 елементами : {NullColumns}");
+}
 void CountingNonNullRows(int[,] matrix)
 {
     int nonNullRows = 0;
