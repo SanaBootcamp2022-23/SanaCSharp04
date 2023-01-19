@@ -148,36 +148,36 @@ for (int i = 0; i < array.GetLength(1); i++)
 }
 
 
-//номер рядка, в якому знаходиться найдовша серія однакових елементів;
-//int countElemRepeatInRows = 0;
-//int[,] arrayCountRepeatElemInRows = new int[countRow, countCol];
+//Number of the row in which there is the longest series of identical elements
+int countElemRepeatInRows = 0;
+int countElemInRow = 1;
+int[] arrayMaxCountRepeatInRow = new int[countRow];
+for (int p = 0; p < array.GetLength(0); p++)
+{
+    countElemInRow = 0;
+    for (int k = 0; k < array.GetLength(1); k++)
+    {
+        countElemRepeatInRows = 0;
+        for (int i = 0; i < array.GetLength(1); i++)
+        {
+            if (array[p, k] == array[p, i])
+            {
+                countElemRepeatInRows++;
+            }
 
-//for (int p = 0; p < countRow; p++)
-//{
-//    for (int k = 0; k < countCol; k++)
-//    {
-//        countElemRepeatInRows = 0;
-//        for (int i = 0; i < countCol; i++)
-//        {
-
-//            if(array[p, k] == array[p, i])
-//            {
-//                countElemRepeatInRows++;
-//            }
-
-//        }
-//        arrayCountRepeatElemInRows[p,k] = countElemRepeatInRows;
-//    }
-//}
-
-//for (int i = 0; i < countRow; i++)
-//{
-//    for (int j = 0; j < countCol; j++)
-//    {
-
-//    }
-
-//}
+        }
+        if(countElemInRow< countElemRepeatInRows)
+        {
+            countElemInRow = countElemRepeatInRows;
+        }
+        arrayMaxCountRepeatInRow[p] = countElemInRow;
+    }
+   
+}
+Console.WriteLine("\n");
+int[] arrayCopyCountRepeatInRow = new int[array.GetLength(0)];
+Array.Copy(arrayMaxCountRepeatInRow, arrayCopyCountRepeatInRow,arrayMaxCountRepeatInRow.Length);
+Array.Sort(arrayCopyCountRepeatInRow);
 
 
 //The multiplication of the elements in those rows that do not contain negative elements;
@@ -266,7 +266,59 @@ for (int i = 0; i < array.GetLength(1); i++)
 
 
 
-//Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці;
+////Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці;
+//int minSum = Math.Abs(array[0, 0]);
+
+//for (int i = 0; i < array.GetLength(0); i++)
+//{
+//    for (int j = 0; j < array.GetLength(1); j++)
+//    {
+
+//        if (i != array.GetLength(0) - j - 1 && (i == 0 || j == array.GetLength(1) - 1))
+//        {
+//            //Console.WriteLine(array[i, j]);
+//            sum = 0;
+//            for (int k = 0; k < array.GetLength(0); k++)
+//            {
+//                for (int p = 0; p < array.GetLength(1); p++)
+//                {
+
+//                    if (k != array.GetLength(0) - p - 1 && p == k-i)
+//                        sum += array[k, p];
+//                            //Console.WriteLine(array[k, p]);
+
+
+
+//                    //if (k != p && k - i == p)
+//                    //{
+//                    //    sum += array[k, p];
+//                    //}
+//                    //else if (k + j == p && k != p)
+//                    //{
+//                    //    sum += array[k, p];
+//                    //}
+
+
+//                    //if (k != array.GetLength(1) - p && k - i == p)
+//                    //{
+//                    //    sum += array[k, p];
+//                    //}
+//                    //else if (k + j == p && k != array.GetLength(1) - p)
+//                    //{
+//                    //    sum += array[k, p];
+//                    //}
+//                }
+//            }
+//            if (minSum > sum)
+//            {
+//                minSum = sum;
+//            }
+
+//            Console.WriteLine(sum);
+//        }
+
+//    }
+//}
 
 
 //The sum of elements in those columns that contain at least one negative element;
@@ -295,7 +347,6 @@ for (int i = 0; i < array.GetLength(1); i++)
     }
     
 }
-
 
 //transpose the matrix
 int[] arrayAdditionElement = new int[array.GetLength(0)*array.GetLength(1)];
@@ -328,6 +379,7 @@ for (int i = 0; i < matrixTransparent.GetLength(1); i++)
 
 Console.WriteLine($"Кількість додатних елементів масиву -> {countPositivElem}");
 
+
 if (maxElemMoreTwoPoints == null)
 {
     Console.WriteLine("В масиві відсутні числа які повторюються більше одного разу!");
@@ -338,9 +390,22 @@ else
     Console.WriteLine($"Максимальне із чисел, що зустрічається в заданій матриці більше одного разу -> {maxElemMoreTwoPoints}");
 }
 
+
 Console.WriteLine($"Кількість рядків, які не містять жодного нульового елемента -> {countRowsWithoutZero}");
 
+
 Console.WriteLine($"Кількість стовпців, які містять хоча б один нульовий елемент -> {countColWithZero}");
+
+
+for (int i = 0; i < arrayMaxCountRepeatInRow.Length; i++)
+{
+    if (arrayMaxCountRepeatInRow[i] == arrayCopyCountRepeatInRow[arrayCopyCountRepeatInRow.Length - 1] && arrayCopyCountRepeatInRow[arrayCopyCountRepeatInRow.Length - 1] != 1)
+    {
+        Console.WriteLine($"Номер рядка, в якому знаходиться найдовша серія однакових елементів -> {i + 1}");
+    }
+
+}
+
 
 for (int i = 0; i < arrayMultipleEachRow.Length; i++)
 {
@@ -350,8 +415,8 @@ for (int i = 0; i < arrayMultipleEachRow.Length; i++)
     }
 }
 
-Console.WriteLine($"Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці -> {maxSum}");
 
+Console.WriteLine($"Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці -> {maxSum}");
 
 
 for (int i = 0; i < arraySumEachRow.Length; i++)
@@ -362,6 +427,7 @@ for (int i = 0; i < arraySumEachRow.Length; i++)
     }
 }
 
+
 for (int i = 0; i < arraySumElement.Length; i++)
 {
     if (arraySumElement[i] != null)
@@ -369,6 +435,7 @@ for (int i = 0; i < arraySumElement.Length; i++)
         Console.WriteLine($"Сума елементів {i + 1} стовпця який містить хоча б один від'ємний елемент -> {arraySumElement[i]}");
     }
 }
+
 
 for (int i = 0; i < matrixTransparent.GetLength(0); i++)
 {
