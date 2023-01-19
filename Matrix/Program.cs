@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Metrics;
+﻿using System;
+using System.Diagnostics.Metrics;
 using System.Numerics;
 using System.Text;
 
@@ -12,6 +13,7 @@ Console.InputEncoding = Encoding.Unicode;
 
 int[,] matrix = CreateNewMatrix();
 
+//SetMatrixNumbers(matrix);
 GenerateMatrixWithRandom(matrix);
 PrintMatrix(matrix);
 FindCountOfPositiveElems(matrix);
@@ -19,7 +21,43 @@ FindMaximumRepeatedNum(matrix);
 CountingNonNullRows(matrix);
 CountNullColumns(matrix);
 FindLongestSeries(matrix);
+RowProductWithoutNegElems(matrix);
+
+
 Console.ReadLine();
+
+void RowProductWithoutNegElems(int[,] matrix)
+{
+    double product = 1;
+
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        bool rowContainsNegative = false;
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            if (matrix[i, j] < 0)
+            {
+                rowContainsNegative = true;
+                break;
+            }
+        }
+        if (!rowContainsNegative)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                product *= matrix[i, j];
+            }
+            break;
+        }
+    }
+    if (product != 1)
+    {
+        Console.WriteLine("Добуток рядка без негативних елементів: " + product);
+    }
+    else
+        Console.WriteLine("У кожному рядку є негативні елементи");
+    
+}
 
 void FindLongestSeries(int[,] matrix)
 {
