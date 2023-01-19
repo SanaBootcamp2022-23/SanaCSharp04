@@ -22,10 +22,44 @@ CountingNonNullRows(matrix);
 CountNullColumns(matrix);
 FindLongestSeries(matrix);
 RowProductWithoutNegElems(matrix);
-
+FindMaxSumOfDiagonals(matrix);
 
 Console.ReadLine();
 
+void FindMaxSumOfDiagonals(int[,] matrix)
+{
+    List<int> diagonalSums = new List<int>();
+
+    for (int k = 0; k < matrix.GetLength(0); k++)
+    {
+        int diagonalSum = 0;
+        for (int i = 0, j = k; i < matrix.GetLength(0) && j < matrix.GetLength(1); i++, j++)
+        {
+            diagonalSum += matrix[i, j];
+        }
+        diagonalSums.Add(diagonalSum);
+    }
+
+    for (int k = 1; k < matrix.GetLength(1); k++)
+    {
+        int diagonalSum = 0;
+        for (int i = k, j = 0; i < matrix.GetLength(0) && j < matrix.GetLength(1); i++, j++)
+        {
+            diagonalSum += matrix[i, j];
+        }
+        diagonalSums.Add(diagonalSum);
+    }
+
+    int maxSum = int.MinValue;
+
+    foreach (int sum in diagonalSums)
+    {
+        if(sum > maxSum)
+            maxSum = sum;
+    }
+
+    Console.WriteLine($"Максимальна сума діагоналі: {maxSum}");
+}
 void RowProductWithoutNegElems(int[,] matrix)
 {
     double product = 1;
@@ -58,7 +92,6 @@ void RowProductWithoutNegElems(int[,] matrix)
         Console.WriteLine("У кожному рядку є негативні елементи");
     
 }
-
 void FindLongestSeries(int[,] matrix)
 {
     int longestSeries = 0;
@@ -235,6 +268,15 @@ void PrintMatrix(int[,] matrix)
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
             Console.Write("\t" + matrix[i, j]);
+        }
+        Console.WriteLine();
+    }
+
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            Console.Write("\t" + $"matrix[{i}, {j}]");
         }
         Console.WriteLine();
     }
