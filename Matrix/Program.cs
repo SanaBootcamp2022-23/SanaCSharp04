@@ -223,7 +223,7 @@ int counterDiagonale = 0;
 
                     if (k!=p&& k-i==p)
                     {
-                        sum+=array[k,p];
+                        sum +=array[k,p];
                     }else if(k + j == p && k != p)
                     {
                         sum += array[k, p];
@@ -265,60 +265,42 @@ for (int i = 0; i < array.GetLength(1); i++)
 }
 
 
+int minSum = Math.Abs(array[0, 0]);
+bool ok = false;
+for (int i = 0; i < array.GetLength(0); i++)
+{
+    for (int j = 0; j < array.GetLength(1); j++)
+    {
 
-////Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці;
-//int minSum = Math.Abs(array[0, 0]);
+        if (i != array.GetLength(0) - j - 1 && (i == 0 || j == array.GetLength(1) - 1))
+        {
+            sum = 0;
+            ok = false;
+            for (int k = 0; k < array.GetLength(0); k++)
+            {
+                for (int p = 0; p < array.GetLength(1); p++)
+                {
+                    if (k != array.GetLength(0) - p - 1 && -p == k - i)
+                    {
+                        sum += Math.Abs(array[k, p]);
+                        ok = true;
+                    }
 
-//for (int i = 0; i < array.GetLength(0); i++)
-//{
-//    for (int j = 0; j < array.GetLength(1); j++)
-//    {
+                    //if (k != array.GetLength(0) - p - 1 && p==-k-j)
+                    //{
+                    //    sum += Math.Abs(array[k, p]);
+                    //}
 
-//        if (i != array.GetLength(0) - j - 1 && (i == 0 || j == array.GetLength(1) - 1))
-//        {
-//            //Console.WriteLine(array[i, j]);
-//            sum = 0;
-//            for (int k = 0; k < array.GetLength(0); k++)
-//            {
-//                for (int p = 0; p < array.GetLength(1); p++)
-//                {
-
-//                    if (k != array.GetLength(0) - p - 1 && p == k-i)
-//                        sum += array[k, p];
-//                            //Console.WriteLine(array[k, p]);
-
-
-
-//                    //if (k != p && k - i == p)
-//                    //{
-//                    //    sum += array[k, p];
-//                    //}
-//                    //else if (k + j == p && k != p)
-//                    //{
-//                    //    sum += array[k, p];
-//                    //}
-
-
-//                    //if (k != array.GetLength(1) - p && k - i == p)
-//                    //{
-//                    //    sum += array[k, p];
-//                    //}
-//                    //else if (k + j == p && k != array.GetLength(1) - p)
-//                    //{
-//                    //    sum += array[k, p];
-//                    //}
-//                }
-//            }
-//            if (minSum > sum)
-//            {
-//                minSum = sum;
-//            }
-
-//            Console.WriteLine(sum);
-//        }
-
-//    }
-//}
+                }
+            }
+            if (minSum > sum && ok == true)
+            {
+                minSum = sum;
+            }
+        }
+    }
+}
+Console.WriteLine($"Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці -> {minSum}");
 
 
 //The sum of elements in those columns that contain at least one negative element;
@@ -426,7 +408,6 @@ for (int i = 0; i < arraySumEachRow.Length; i++)
         Console.WriteLine($"Сума елементів {i + 1} стовпця матриці який не містить від'ємний елемент -> {arraySumEachRow[i]}");
     }
 }
-
 
 for (int i = 0; i < arraySumElement.Length; i++)
 {
