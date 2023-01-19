@@ -26,7 +26,40 @@ FindMaxSumOfDiagonals(matrix); //Works for square matrix
 FindSumOfColumnWithoutNegElem(matrix);
 
 Console.ReadLine();
+void FindMinSumOfABSElemsInDiagonals(int[,] matrix)
+{
+    List<int> diagonalSums = new List<int>();
 
+    for (int k = 0; k < matrix.GetLength(0); k++)
+    {
+        int diagonalSum = 0;
+        for (int i = 0, j = k; i < matrix.GetLength(0) && j < matrix.GetLength(1); i++, j++)
+        {
+            diagonalSum += Math.Abs(matrix[i, j]);
+        }
+        diagonalSums.Add(diagonalSum);
+    }
+
+    for (int k = 1; k < matrix.GetLength(1); k++)
+    {
+        int diagonalSum = 0;
+        for (int i = k, j = 0; i < matrix.GetLength(0) && j < matrix.GetLength(1); i++, j++)
+        {
+            diagonalSum += Math.Abs(matrix[i, j]);
+        }
+        diagonalSums.Add(diagonalSum);
+    }
+
+    int minSum = int.MaxValue;
+
+    foreach (int sum in diagonalSums)
+    {
+        if (sum < minSum)
+            minSum = sum;
+    }
+
+    Console.WriteLine($"Мінімальна сума елементів по модулю діагоналі: {minSum}");
+}
 void FindSumOfColumnWithoutNegElem(int[,] matrix)
 {
     int sum = 0;
