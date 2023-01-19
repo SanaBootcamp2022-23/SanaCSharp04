@@ -30,6 +30,7 @@ PrintMatrix(MakeTransporedMatrix(matrix));
 
 
 Console.ReadLine();
+
 int[,] MakeTransporedMatrix(int[,] matrix)
 {
     int[,] transposedMatrix = new int[matrix.GetLength(1), matrix.GetLength(0)];
@@ -43,6 +44,7 @@ int[,] MakeTransporedMatrix(int[,] matrix)
     }
     return transposedMatrix;
 }
+
 void FindSumOfElemsInColWithNegElem(int[,] matrix)
 {
     int sum = 0;
@@ -68,6 +70,7 @@ void FindSumOfElemsInColWithNegElem(int[,] matrix)
     }
     Console.WriteLine("Сума елементів у стовпці, який містить хоч 1 від'ємний елемент: " + sum);
 }
+
 void FindMinSumOfABSElemsInDiagonals(int[,] matrix)
 {
     List<int> diagonalSums = new List<int>();
@@ -102,6 +105,7 @@ void FindMinSumOfABSElemsInDiagonals(int[,] matrix)
 
     Console.WriteLine($"Мінімальна сума елементів по модулю діагоналі: {minSum}");
 }
+
 void FindSumOfColumnWithoutNegElem(int[,] matrix)
 {
     int sum = 0;
@@ -131,6 +135,7 @@ void FindSumOfColumnWithoutNegElem(int[,] matrix)
     else
         Console.WriteLine("У кожному рядку є негативні елементи");
 }
+
 void FindMaxSumOfDiagonals(int[,] matrix)
 {
     List<int> diagonalSums = new List<int>();
@@ -165,6 +170,7 @@ void FindMaxSumOfDiagonals(int[,] matrix)
 
     Console.WriteLine($"Максимальна сума діагоналі: {maxSum}");
 }
+
 void RowProductWithoutNegElems(int[,] matrix)
 {
     double product = 1;
@@ -197,6 +203,7 @@ void RowProductWithoutNegElems(int[,] matrix)
         Console.WriteLine("У кожному рядку є негативні елементи");
     
 }
+
 void FindLongestSeries(int[,] matrix)
 {
     int longestSeries = 0;
@@ -229,6 +236,7 @@ void FindLongestSeries(int[,] matrix)
     }
     Console.WriteLine($"Найдовша серія однакових чисел: {longestSeries}, в рядку {rowWithLongestSeries + 1} ");
 }
+
 void CountNullColumns(int[,] matrix)
 {
     int NullColumns = 0;
@@ -252,6 +260,7 @@ void CountNullColumns(int[,] matrix)
     }
     Console.WriteLine($"Стовпців з 0 елементами : {NullColumns}");
 }
+
 void CountingNonNullRows(int[,] matrix)
 {
     int nonNullRows = 0;
@@ -274,6 +283,7 @@ void CountingNonNullRows(int[,] matrix)
     }
     Console.WriteLine($"Рядків з не 0 елементами : {nonNullRows}");
 }
+
 void FindMaximumRepeatedNum(int[,] matrix)
 {
     int max = int.MinValue;
@@ -300,6 +310,7 @@ void FindMaximumRepeatedNum(int[,] matrix)
     Console.WriteLine($"Максимальний повторюваний елемент: {max}");
 
 }
+
 int[,] CreateNewMatrix()
 {
     int n, m;
@@ -318,6 +329,7 @@ int[,] CreateNewMatrix()
 
     return matrix;
 }
+
 void FindCountOfPositiveElems(int[,] matrix)
 {
     int counter = 0;
@@ -333,6 +345,7 @@ void FindCountOfPositiveElems(int[,] matrix)
 
     Console.WriteLine($"Кількість додатніх елементів: {counter}");
 }
+
 void GenerateMatrixWithRandom(int[,] matrix)
 {
     Random rnd = new Random();
@@ -345,6 +358,7 @@ void GenerateMatrixWithRandom(int[,] matrix)
         }
     }
 }
+
 void SetMatrixNumbers(int[,] matrix)
 {
     bool isOk = false;
@@ -361,6 +375,7 @@ void SetMatrixNumbers(int[,] matrix)
         }
     }
 }
+
 void PrintMatrix(int[,] matrix)
 {
     for (int i = 0; i < matrix.GetLength(0); i++)
