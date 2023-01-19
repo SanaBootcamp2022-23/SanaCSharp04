@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics.Metrics;
+using System.Text;
 
 System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)
 System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
@@ -13,10 +14,37 @@ int[,] matrix = CreateNewMatrix();
 GenerateMatrixWithRandom(matrix);
 PrintMatrix(matrix);
 FindCountOfPositiveElems(matrix);
-
+FindMaximumRepeatedNum(matrix);
 Console.ReadLine();
 
 
+
+void FindMaximumRepeatedNum(int[,] matrix)
+{
+    int max = int.MinValue;
+    Dictionary<int,int> numbers = new Dictionary<int, int>();
+
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            if (numbers.ContainsKey(matrix[i, j]))
+            {
+                numbers[matrix[i, j]]++;
+                if (numbers[matrix[i, j]] > 1 && matrix[i, j] > max)
+                {
+                    max = matrix[i, j];
+                }
+            }
+            else
+            {
+                numbers.Add(matrix[i, j], 1);
+            }
+        }
+    }
+    Console.WriteLine($"Максимальний повторюваний елемент: {max}");
+
+}
 
 int[,] CreateNewMatrix()
 {
