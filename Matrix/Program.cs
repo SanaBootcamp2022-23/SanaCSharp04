@@ -135,9 +135,9 @@ for (int i = 0; i < array.GetLength(0); i++)
 
 // Count columns that have one or more zero elements
 int countColWithZero = 0;
-for (int i = 0; i < array.GetLength(0); i++)
+for (int i = 0; i < array.GetLength(1); i++)
 {
-    for (int j = 0; j < array.GetLength(1); j++)
+    for (int j = 0; j < array.GetLength(0); j++)
     {
         if (array[j, i] == 0)
         {
@@ -201,26 +201,46 @@ for (int i = 0; i < array.GetLength(0); i++)
     arrayMultipleEachRow[i]=multipleValue;
 }
 
-//максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці;
+//the maximum among the sums of diagonal elements parallel to the main diagonal of the matrix
+int[] arraySumDiagonale = new int[array.GetLength(0) - 1 + array.GetLength(1) - 1];
+int countParallelDiagonaleInArray = array.GetLength(0) - 1 + array.GetLength(1) - 1;
+int sum = 0;
+int maxSum = array[0, array.GetLength(1) - 1];
+int counterDiagonale = 0;
 
-//int maxSumElemDiagonale = array[0, array.GetLength(1) - 1];
-//int countParallelDiagonaleInArray = array.GetLength(0) - 1 + array.GetLength(1)-1;
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            
+            if (i != j && (i==0 || j==0))
+            {
+            sum = 0;
+            for (int k = i; k < array.GetLength(0); k++)
+            {
+                for (int p = j; p < array.GetLength(1); p++)
+                {
 
+                    if (k!=p&& k-i==p)
+                    {
+                        sum+=array[k,p];
+                    }else if(k + j == p && k != p)
+                    {
+                        sum += array[k, p];
+                    }
+                }
+            }
+            if (maxSum < sum)
+            {
+                maxSum = sum;
+            }
+            //arraySumDiagonale[0] = sum;
+            //counterDiagonale++;
+            //Console.WriteLine(sum);
+        }
 
-//for(int p = 0;p< countParallelDiagonaleInArray; p++)
-//{
-//    for (int i = 0; i < array.GetLength(0); i++)
-//    {
-//        for (int j = 0; j < array.GetLength(1); j++)
-//        {
-//            if (i != j)
-//            {
-//               if()
-//            }
-//        }
-//    }
-//}
-
+        }
+    }
 
 //The sum of elements in those columns that do not contain negative elements;
 
@@ -278,7 +298,7 @@ for (int i = 0; i < array.GetLength(1); i++)
 
 
 //transpose the matrix
-int[] arrayAdditionElement = new int[countCol*countRow];
+int[] arrayAdditionElement = new int[array.GetLength(0)*array.GetLength(1)];
 int f = 0;
 for (int i = 0; i < array.GetLength(0); i++)
 {
@@ -289,14 +309,15 @@ for (int i = 0; i < array.GetLength(0); i++)
     }
 }
 
+
 int[,] matrixTransparent = new int[array.GetLength(1), array.GetLength(0)];
 f = 0;
-for (int i = 0; i < array.GetLength(1); i++)
+for (int i = 0; i < matrixTransparent.GetLength(1); i++)
 {
-    for (int j = 0; j < array.GetLength(0); j++)
+    for (int j = 0; j < matrixTransparent.GetLength(0); j++)
     {
         matrixTransparent[j, i] = arrayAdditionElement[f];
-            f++;
+        f++;
     }
 }
 
@@ -328,6 +349,10 @@ for (int i = 0; i < arrayMultipleEachRow.Length; i++)
         Console.WriteLine($"Добуток елементів {i + 1} рядка матриці, який не містить від'ємних елементів -> {arrayMultipleEachRow[i]}");
     }
 }
+
+Console.WriteLine($"Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці -> {maxSum}");
+
+
 
 for (int i = 0; i < arraySumEachRow.Length; i++)
 {
