@@ -53,9 +53,14 @@ namespace Matrix
             var rowIdWithMaxSeriesSameElements = matrixOperations.FindRowIdWithMaxSeriesSameElements();
             var productsInRowsWithoutNegativeElements =
                 matrixOperations.GetProductElementsInRowWithoutNegativeElements();
+            var maxOfSumsParallelOfMainDiagonal = matrixOperations.GetMaxOfSumsParallelOfMainDiagonal();
+            var sumsInColumnsWithoutNegativeElements = matrixOperations.GetSumsInColumnsWithoutNegativeElements();
+            var minOfAbsSumsParallelOfSideDiagonal = matrixOperations.GetMinOfAbsSumsParallelOfSideDiagonal();
+            var sumsInColumnsWithNegativeElements = matrixOperations.GetSumsInColumnsWithAnyNegativeElements();
+            var transposedMatrix = matrixOperations.GetTransposedMatrix();
 
             Console.WriteLine("RESULTS:");
-            Console.WriteLine($"\n1) Count of positive elements: {positiveElements}");
+            Console.WriteLine($"1) Count of positive elements: {positiveElements}");
 
             Console.WriteLine(maxOfRepeatNumbers != null
                 ? $"\n2) Maximum number that occurs in the given matrix more than once: {maxOfRepeatNumbers}"
@@ -81,6 +86,41 @@ namespace Matrix
             {
                 Console.WriteLine("\n6) Products in rows without negative elements: No rows without negative elements");
             }
+
+            Console.WriteLine($"\n7) Maximum of sums of diagonal elements parallel to the main diagonal (Including main diagonal): {maxOfSumsParallelOfMainDiagonal}");
+
+            if (sumsInColumnsWithoutNegativeElements.Count > 0)
+            {
+                Console.WriteLine("\n8) Sum in columns without negative elements:");
+
+                foreach (var sum in sumsInColumnsWithoutNegativeElements)
+                {
+                    Console.WriteLine($"\t\t\t\t\tColumn = {sum.Key + 1} Sum = {sum.Value}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n8) Sums in columns without negative elements: No columns without negative elements");
+            }
+
+            Console.WriteLine($"\n9) Minimum of sums of modules elements of diagonals parallel to side diagonal (Including side diagonal): {minOfAbsSumsParallelOfSideDiagonal}");
+
+            if (sumsInColumnsWithNegativeElements.Count > 0)
+            {
+                Console.WriteLine("\n10) Sum in columns with any negative elements:");
+
+                foreach (var sum in sumsInColumnsWithNegativeElements)
+                {
+                    Console.WriteLine($"\t\t\t\t\tColumn = {sum.Key + 1} Sum = {sum.Value}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n10) Sums in columns with any negative elements: No columns with any negative elements");
+            }
+
+            Console.WriteLine("\n11) Transposed matrix: ");
+            PrintMatrix(transposedMatrix, "A (T)");
         }
 
         private static void FillUserMatrix(int[,] matrix)
@@ -109,11 +149,11 @@ namespace Matrix
 
         private static void PrintMatrix(int[,] matrix, string name = "M")
         {
-            Console.Write($"   {name} = ");
+            Console.Write($"\t{name} = \n");
             for (var i = 0; i < matrix.GetLength(0); i++)
             {
                 if (i == 0)
-                    Console.Write("    /");
+                    Console.Write("\t   /");
 
                 else if (i == matrix.GetLength(0) - 1)
                     Console.Write("\t   \\");

@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace MatrixOperations
+﻿namespace MatrixOperations
 {
     public class MatrixOperations
     {
@@ -147,7 +145,7 @@ namespace MatrixOperations
         }
 
         // 6) Добуток елементів в тих рядках, які не містять від’ємних елементів
-        public Dictionary<int, int> GetProductElementsInRowWithoutNegativeElements()
+        public Dictionary<int, long> GetProductElementsInRowWithoutNegativeElements()
         {
             var rowsIndexesList = new List<int>();
 
@@ -169,10 +167,10 @@ namespace MatrixOperations
                 }
             }
 
-            var resultDictionary = new Dictionary<int, int>();
+            var resultDictionary = new Dictionary<int, long>();
             foreach (var i in rowsIndexesList)
             {
-                var product = 1;
+                long product = 1;
                 for (var j = 0; j < _matrix.GetLength(1); j++)
                 {
                     product *= _matrix[i, j];
@@ -182,6 +180,145 @@ namespace MatrixOperations
             }
 
             return resultDictionary;
+        }
+
+        // 7) Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці (включно з головною діагоналлю)
+        public int GetMaxOfSumsParallelOfMainDiagonal()
+        {
+            var rows = _matrix.GetLength(0);
+            var columns = _matrix.GetLength(1);
+
+            var sums = 
+                rows >= columns 
+                ? new int[2 * rows - 1 - (rows - columns)] 
+                : new int[2 * columns - 1 - (columns - rows)];
+
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < columns; j++)
+                {
+                    sums[i + j] += _matrix[i, columns - j - 1];
+                    
+                }
+            }
+
+            return sums.Max();
+        }
+
+        // 8) Сума елементів в тих стовпцях, які не містять від’ємних елементів
+        public Dictionary<int, int> GetSumsInColumnsWithoutNegativeElements()
+        {
+            var columnsIndexesList = new List<int>();
+
+            for (var j = 0; j < _matrix.GetLength(1); j++)
+            {
+                var isColumnWithNegativeElements = false;
+                for (var i = 0; i < _matrix.GetLength(0); i++)
+                {
+                    if (_matrix[i, j] < 0)
+                    {
+                        isColumnWithNegativeElements = true;
+                        break;
+                    }
+                }
+
+                if (!isColumnWithNegativeElements)
+                {
+                    columnsIndexesList.Add(j);
+                }
+            }
+
+            var resultDictionary = new Dictionary<int, int>();
+            
+            foreach (var j in columnsIndexesList)
+            {
+                var sum = 0;
+                for (var i = 0; i < _matrix.GetLength(0); i++)
+                {
+                    sum += _matrix[i, j];
+                }
+
+                resultDictionary.Add(j, sum);
+            }
+
+            return resultDictionary;
+        }
+
+        // 9) Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці (включно з побічною діагоналлю матриці)
+        public int GetMinOfAbsSumsParallelOfSideDiagonal()
+        {
+            var rows = _matrix.GetLength(0);
+            var columns = _matrix.GetLength(1);
+
+            var sums =
+                rows >= columns
+                    ? new int[2 * rows - 1 - (rows - columns)]
+                    : new int[2 * columns - 1 - (columns - rows)];
+
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < columns; j++)
+                {
+                    sums[i + j] += Math.Abs(_matrix[i, j]);
+                }
+            }
+
+            return sums.Min();
+        }
+
+        // 10) Сума елементів в тих стовпцях, які  містять хоча б один від’ємний елемент
+        public Dictionary<int, int> GetSumsInColumnsWithAnyNegativeElements()
+        {
+            var columnsIndexesList = new List<int>();
+
+            for (var j = 0; j < _matrix.GetLength(1); j++)
+            {
+                var isColumnWithNegativeElements = false;
+                for (var i = 0; i < _matrix.GetLength(0); i++)
+                {
+                    if (_matrix[i, j] < 0)
+                    {
+                        isColumnWithNegativeElements = true;
+                        break;
+                    }
+                }
+
+                if (isColumnWithNegativeElements)
+                {
+                    columnsIndexesList.Add(j);
+                }
+            }
+
+            var resultDictionary = new Dictionary<int, int>();
+
+            foreach (var j in columnsIndexesList)
+            {
+                var sum = 0;
+                for (var i = 0; i < _matrix.GetLength(0); i++)
+                {
+                    sum += _matrix[i, j];
+                }
+
+                resultDictionary.Add(j, sum);
+            }
+
+            return resultDictionary;
+        }
+
+        // 11) Tранспонованa матриця
+        public int[,] GetTransposedMatrix()
+        {
+            var tranposedMatrix = new int[_matrix.GetLength(1), _matrix.GetLength(0)];
+
+            for (var i = 0; i < tranposedMatrix.GetLength(0); i++)
+            {
+                for (var j = 0; j < tranposedMatrix.GetLength(1); j++)
+                {
+                    tranposedMatrix[i, j] = _matrix[j, i];
+                }
+            }
+
+            return tranposedMatrix;
         }
 
         private int[] MatrixToArray(int[,] matrix)
