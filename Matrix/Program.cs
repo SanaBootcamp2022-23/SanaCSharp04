@@ -15,10 +15,32 @@ GenerateMatrixWithRandom(matrix);
 PrintMatrix(matrix);
 FindCountOfPositiveElems(matrix);
 FindMaximumRepeatedNum(matrix);
+CountingNonNullRows(matrix);
 Console.ReadLine();
 
 
+void CountingNonNullRows(int[,] matrix)
+{
+    int nonNullRows = 0;
 
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        bool isThereNull = false;
+
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            if (matrix[i, j] == 0)
+            {
+                isThereNull = true;
+                break;
+            }
+        }
+        if(isThereNull != true) { 
+            nonNullRows++;
+        }
+    }
+    Console.WriteLine($"Рядків з не 0 елементами : {nonNullRows}");
+}
 void FindMaximumRepeatedNum(int[,] matrix)
 {
     int max = int.MinValue;
