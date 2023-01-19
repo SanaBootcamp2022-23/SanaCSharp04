@@ -213,7 +213,7 @@ else
     Console.WriteLine($"Номер(індекс) рядка, в якому знаходиться найдовша серія однакових елементів: {streakIdx}");
 
 if (positiveRowCount < 1)
-    Console.WriteLine($"Рядки без від'ємних чисел відсутні.");
+    Console.WriteLine($"Рядки без від'ємних чисел відсутні. Добуток = 0.");
 else
     Console.WriteLine($"Добуток елементів в тих рядках, які не містять від’ємних елементів: {positiveRowsMultiply}");
 
