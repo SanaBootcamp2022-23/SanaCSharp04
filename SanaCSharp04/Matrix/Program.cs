@@ -118,3 +118,14 @@ Random rhd = new Random();
 for (int line = 0; line < matrixHeight; line++)
     for (int column = 0; column < matrixWidth; column++)
         matrix[line, column] = rhd.Next(leftBorderMatrix, rightBorderMatrix);
+
+
+// Завдання 1
+// Для матриці N на M цілого типу визначити: кількість додатних елементів;
+
+uint integersCount = 0;
+
+foreach (int value in matrix)
+    if (value > 0) integersCount++;
+
+Console.WriteLine($"count integers matrix = {integersCount}");
