@@ -123,12 +123,12 @@ for (int line = 0; line < matrixHeight; line++)
 // Завдання 1
 // Для матриці N на M цілого типу визначити: кількість додатних елементів;
 
-uint integersCount = 0;
+uint positiveNumberCount = 0;
 
 foreach (int value in matrix)
-    if (value > 0) integersCount++;
+    if (value > 0) positiveNumberCount++;
 
-Console.WriteLine($"Count integers matrix = {integersCount}");
+Console.WriteLine($"Count a positive number matrix = {positiveNumberCount}");
 
 // Завдання 2
 // Для матриці N на M цілого типу визначити: максимальне із чисел, що зустрічається в заданій матриці більше одного разу;
@@ -151,7 +151,7 @@ for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
                 }
 
 if (twoIdenticalNumbersArePresent) 
-    Console.WriteLine($"The maximum number that occurs in the given matrix more than once {maxNumber}");
+    Console.WriteLine($"The maximum number that occurs in the given matrix more than once = {maxNumber}");
 else
     Console.WriteLine("There are no identical elements in the matrix");
 
@@ -177,4 +177,27 @@ for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
     }
     thereIsAZeroInTheLine = false;
 }
-Console.WriteLine($"The number of rows without zero elements { theNumberOfRowsWithoutZeroElements} ");
+Console.WriteLine($"The number of rows without zero elements = { theNumberOfRowsWithoutZeroElements} ");
+
+// Завдання 4
+// Для матриці N на M цілого типу визначити: кількість стовпців, які містять хоча б один нульовий елемент;
+thereIsAZeroInTheLine = false;
+int theNumberOfColumnsThatContainZero = 0;
+
+
+for (int column = 0; column < matrixWidth; column++)
+{
+    for (int line = 0; line < matrixHeight; line++)
+    {
+        if (matrix[line, column] == 0)
+        {
+            thereIsAZeroInTheLine = true;
+            break;
+        }
+    }
+    if (thereIsAZeroInTheLine)
+        theNumberOfColumnsThatContainZero++;
+
+    thereIsAZeroInTheLine = false;
+}
+Console.WriteLine($"The number of columns that contain at least one null element = { theNumberOfColumnsThatContainZero}");
