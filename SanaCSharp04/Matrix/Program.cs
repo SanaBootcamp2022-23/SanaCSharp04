@@ -129,3 +129,28 @@ foreach (int value in matrix)
     if (value > 0) integersCount++;
 
 Console.WriteLine($"count integers matrix = {integersCount}");
+
+// Завдання 2
+// Для матриці N на M цілого типу визначити: максимальне із чисел, що зустрічається в заданій матриці більше одного разу;
+
+int maxNumber = int.MinValue;
+bool twoIdenticalNumbersArePresent = false;
+for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
+
+    for (int columnOne = 0; columnOne < matrixWidth; columnOne++)
+
+        for (int lineTwo = 0; lineTwo < matrixHeight; lineTwo++)
+
+            for (int columnTwo = 0; columnTwo < matrixWidth; columnTwo++)
+                if (lineOne != lineTwo && columnOne != columnTwo &&
+                    matrix[lineOne, columnOne] == matrix[lineTwo, columnTwo] &&
+                    maxNumber < matrix[lineOne, columnOne])
+                {
+                    maxNumber = matrix[lineOne, columnOne];
+                    twoIdenticalNumbersArePresent = true;
+                }
+
+if (twoIdenticalNumbersArePresent) 
+    Console.WriteLine($"The maximum number that occurs in the given matrix more than once {maxNumber}");
+else
+    Console.WriteLine("There are no identical elements in the matrix");
