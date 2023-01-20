@@ -128,7 +128,7 @@ uint integersCount = 0;
 foreach (int value in matrix)
     if (value > 0) integersCount++;
 
-Console.WriteLine($"count integers matrix = {integersCount}");
+Console.WriteLine($"Count integers matrix = {integersCount}");
 
 // Завдання 2
 // Для матриці N на M цілого типу визначити: максимальне із чисел, що зустрічається в заданій матриці більше одного разу;
@@ -154,3 +154,27 @@ if (twoIdenticalNumbersArePresent)
     Console.WriteLine($"The maximum number that occurs in the given matrix more than once {maxNumber}");
 else
     Console.WriteLine("There are no identical elements in the matrix");
+
+// Завдання 3
+// Для матриці N на M цілого типу визначити: кількість рядків, які не містять жодного нульового елемента;
+
+bool thereIsAZeroInTheLine = false;
+int theNumberOfRowsWithoutZeroElements = 0;
+
+for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
+{
+    for (int columnOne = 0; columnOne < matrixWidth; columnOne++)
+    {
+        if (matrix[lineOne, columnOne] == 0)
+        {
+            thereIsAZeroInTheLine = true;
+            break;
+        }
+    }
+    if (!thereIsAZeroInTheLine)
+    {
+        theNumberOfRowsWithoutZeroElements++;
+    }
+    thereIsAZeroInTheLine = false;
+}
+Console.WriteLine($"The number of rows without zero elements { theNumberOfRowsWithoutZeroElements} ");
