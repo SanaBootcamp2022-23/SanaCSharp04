@@ -201,3 +201,30 @@ for (int column = 0; column < matrixWidth; column++)
     thereIsAZeroInTheLine = false;
 }
 Console.WriteLine($"The number of columns that contain at least one null element = { theNumberOfColumnsThatContainZero}");
+// Завдання 5
+// Для матриці N на M цілого типу визначити: номер рядка, в якому знаходиться найдовша серія однакових елементів;
+
+int countValue=1;
+//int theNumberOfRowsWithoutZeroElements = 0;
+int[] arr =new int[matrixHeight];
+for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
+{
+    for (int columnOne = 1; columnOne < matrixWidth; columnOne++)
+    {
+        if (matrix[lineOne, columnOne] == matrix[lineOne, columnOne - 1])
+        {
+            countValue++;
+
+        }
+        else countValue = 1;
+    }
+    if (!thereIsAZeroInTheLine)
+    {
+        theNumberOfRowsWithoutZeroElements++;
+    }
+    thereIsAZeroInTheLine = false;
+}
+Console.WriteLine($"The number of rows without zero elements = { theNumberOfRowsWithoutZeroElements} ");
+
+
+
