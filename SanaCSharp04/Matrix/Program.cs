@@ -330,4 +330,33 @@ for (int i = 0; i < matrixHeight; i++)
 
 Console.WriteLine($" { Math.Min(sumOfDiagonalsHeight1.Min(), sumOfDiagonalsWidth1.Min())} ");
 
+// Завдання 10
+// Для матриці N на M цілого типу визначити: суму елементів в тих стовпцях, які  містять хоча б один від’ємний елемент;
+
+columHasANegativeElement = true;
+int sumElements1 = 0;
+
+for (int columnOne = 0; columnOne < matrixWidth; columnOne++)
+{
+    for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
+    {
+        if (matrix[lineOne, columnOne] < 0)
+        {
+            columHasANegativeElement = false;
+            break;
+        }
+    }
+    if (columHasANegativeElement)
+    {
+        continue;
+    }
+    for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
+    {
+        if (matrix[lineOne, columnOne] != 0) sumElements1 += matrix[lineOne, columnOne];
+    }
+    columHasANegativeElement = true;
+
+}
+Console.WriteLine($"The count of rows which contain at least one negative element { sumElements1} ");
+
 
