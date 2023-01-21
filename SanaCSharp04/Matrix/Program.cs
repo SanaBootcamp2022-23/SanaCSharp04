@@ -359,4 +359,13 @@ for (int columnOne = 0; columnOne < matrixWidth; columnOne++)
 }
 Console.WriteLine($"The count of rows which contain at least one negative element { sumElements1} ");
 
+// Завдання 11
+// Для матриці N на M цілого типу визначити: транспоновану матрицю;
 
+int[,] matrixTranspon = new int[matrixWidth,matrixHeight];
+
+for (int line = 0; line < matrixHeight; line++)
+    for (int column = 0; column < matrixWidth; column++)
+        matrixTranspon[column,line] = matrix[line, column] ;
+
+Console.WriteLine();
