@@ -201,30 +201,66 @@ for (int column = 0; column < matrixWidth; column++)
     thereIsAZeroInTheLine = false;
 }
 Console.WriteLine($"The number of columns that contain at least one null element = { theNumberOfColumnsThatContainZero}");
-// Завдання 5
-// Для матриці N на M цілого типу визначити: номер рядка, в якому знаходиться найдовша серія однакових елементів;
+// Завдання 6
+// Для матриці N на M цілого типу визначити: добуток елементів в тих рядках, які не містять від’ємних елементів;
 
-int countValue=1;
-//int theNumberOfRowsWithoutZeroElements = 0;
-int[] arr =new int[matrixHeight];
+bool stringHasANegativeElement = false;
+
+int productElements = 1;
+
 for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
 {
-    for (int columnOne = 1; columnOne < matrixWidth; columnOne++)
+    for (int columnOne = 0; columnOne < matrixWidth; columnOne++)
     {
-        if (matrix[lineOne, columnOne] == matrix[lineOne, columnOne - 1])
+        if (matrix[lineOne, columnOne] < 0)
         {
-            countValue++;
-
+            stringHasANegativeElement = true;
+            break;
         }
-        else countValue = 1;
     }
-    if (!thereIsAZeroInTheLine)
+    if (stringHasANegativeElement)
     {
-        theNumberOfRowsWithoutZeroElements++;
+        stringHasANegativeElement = false;
+        continue;
     }
-    thereIsAZeroInTheLine = false;
+    for (int columnOne = 0; columnOne < matrixWidth; columnOne++)
+    {
+        if (matrix[lineOne, columnOne] != 0) productElements *= matrix[lineOne, columnOne];
+    }
+
 }
-Console.WriteLine($"The number of rows without zero elements = { theNumberOfRowsWithoutZeroElements} ");
+Console.WriteLine($"The number of rows without zero elements { productElements} ");
 
+// Завдання 7
+// Для матриці N на M цілого типу визначити: максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці;
 
+int[] sumOfDiagonalsWidth = new int[matrixWidth];
+for (int i = 0; i < matrixWidth; i++)
+{
+    for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
+    {
+        for (int columnOne = i; columnOne < matrixWidth; columnOne++)
+        {
+            if (lineOne + i == columnOne)
+            {
+                sumOfDiagonalsWidth[i] += matrix[lineOne, columnOne];
+            }
+        }
+    }
+}
+int[] sumOfDiagonalsHeight = new int[matrixHeight];
+for (int i = 0; i < matrixWidth; i++)
+{
+    for (int lineOne = i; lineOne < matrixHeight; lineOne++)
+    {
+        for (int columnOne = 0; columnOne < matrixWidth; columnOne++)
+        {
+            if (lineOne == columnOne + i)
+            {
+                sumOfDiagonalsHeight[i] += matrix[lineOne, columnOne];
+            }
+        }
+    }
+}
 
+Console.WriteLine($" { Math.Max(sumOfDiagonalsHeight.Max(), sumOfDiagonalsWidth.Max())} ");
