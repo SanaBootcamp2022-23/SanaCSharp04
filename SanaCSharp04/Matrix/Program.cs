@@ -294,3 +294,40 @@ for (int columnOne = 0; columnOne < matrixWidth; columnOne++)
 
 }
 Console.WriteLine($"The count of rows without zero elements { sumElements} ");
+
+// Завдання 9
+// Для матриці N на M цілого типу визначити: мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці;
+
+int []sumOfDiagonalsWidth1 = new int[matrixWidth];
+for (int i = 0; i < matrixWidth; i++)
+{
+    for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
+    {
+        for (int columnOne = (int)matrixWidth - 1 - i; columnOne >= 0; columnOne--)
+        {
+            if (lineOne + columnOne == (int)matrixWidth - 1 - i)
+            {
+                sumOfDiagonalsWidth1[i] += Math.Abs(matrix[lineOne, columnOne]);
+            }
+        }
+    }
+}
+int []sumOfDiagonalsHeight1 = new int[matrixHeight];
+for (int i = 0; i < matrixHeight; i++)
+{
+    for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
+    {
+        for (int columnOne = (int)matrixWidth - 1; columnOne >= 0; columnOne--)
+        {
+
+            if (lineOne + columnOne == (int)matrixWidth - 1 + i)
+            {
+                sumOfDiagonalsHeight1[i] += Math.Abs(matrix[lineOne, columnOne]);
+            }
+        }
+    }
+}
+
+Console.WriteLine($" { Math.Min(sumOfDiagonalsHeight1.Min(), sumOfDiagonalsWidth1.Min())} ");
+
+
