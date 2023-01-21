@@ -5,13 +5,19 @@ Console.OutputEncoding = UTF8Encoding.UTF8;
 int NumPositive = 0,
     NumColumnsNull = 0,
     NumRowsNotNull = 0,
-    MaxSeriesIdenticalElements = 0,
+    MaxSumDiagonals,
     Multiplication,
     SeriesIdenticalElements,
-    NumMaxElement;
-bool FlagColumnsNull, FlagRowsNull, FlagMultiplication;
-string PosMaxSeries = "",
-    MultiplicationRows= "";
+    NumMaxElement,
+    SumColumns,
+    MinSumDiagonals;
+bool FlagColumnsNull, FlagRowsNull, FlagMultiplication, FlagNegativeColumns;
+string OutMaxSeries = "",
+    MultiplicationRows = "",
+    OutMaxSumDiagonals = "",
+    OutSumColumns = "",
+    OutMinSumDiagonals = "",
+    OutSumNegativeColumns = "";
 
 #region зчитування масиву
 Console.Write("Введіть параметри матриці\nРядків: ");
@@ -32,7 +38,7 @@ Console.WriteLine("Матриця: \n" +
 for (int i = 0; i < rows; i++)
 {
     for (int j = 0; j < columns; j++)
-        Console.Write(arr[i, j] + " ");
+        Console.Write($"{arr[i, j],3} ");
     Console.WriteLine();
 }
 Console.WriteLine("---");
@@ -95,21 +101,22 @@ for (int j = 0; j < columns; j++)
 }
 #endregion
 #region номер рядка, в якому знаходиться найдовша серія однакових елементів
+int MaxSeriesIdenticalElements = 0;
 for (int i = 0; i < rows; i++)
 {
-    SeriesIdenticalElements = 0;
     for (int j = 0; j < columns - 1; j++)
     {
+        SeriesIdenticalElements = 0;
         for (int k = j + 1; k < columns; k++)
         {
-            if (arr[i, j] == arr[i, k])
-                SeriesIdenticalElements++;
+            if (arr[i, j] == arr[i, k]) SeriesIdenticalElements++;
         }
         if (SeriesIdenticalElements > MaxSeriesIdenticalElements)
         {
             MaxSeriesIdenticalElements = SeriesIdenticalElements;
-            PosMaxSeries += "\nRow "+i.ToString();
+            OutMaxSeries = "";
         }
+        if (SeriesIdenticalElements == MaxSeriesIdenticalElements) OutMaxSeries += $"\nRow: {i} Series: {MaxSeriesIdenticalElements + 1}";
     }
 }
 #endregion
@@ -120,31 +127,109 @@ for (int i = 0; i < rows; i++)
     FlagMultiplication = true;
     for (int j = 0; j < columns; j++)
     {
-        if (arr[i,j]<0)
+        if (arr[i, j] < 0)
         {
-            FlagMultiplication= false;
+            FlagMultiplication = false;
             break;
         }
         Multiplication *= arr[i, j];
     }
-    if(FlagMultiplication)
+    if (FlagMultiplication)
     {
         MultiplicationRows += $"\nRow {i}: Multiplication = {Multiplication}";
     }
 }
 #endregion
+#region Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці
+int NumDiagonals = rows + columns;
+int[] SumDiagonals = new int[NumDiagonals];
+for (int i = 0; i < rows; i++)
+{
+    for (int j = 0; j < columns; j++)
+    {
+        SumDiagonals[columns - (j - i)] += arr[i, j];
+    }
+}
+MaxSumDiagonals = SumDiagonals[NumDiagonals - 1];
+for (int i = 1; i < NumDiagonals; i++)
+    if (SumDiagonals[i] >= MaxSumDiagonals && i != columns)
+    {
+        if (SumDiagonals[i] > MaxSumDiagonals)
+        {
+            MaxSumDiagonals = SumDiagonals[i];
+            OutMaxSumDiagonals = "";
+        }
+        OutMaxSumDiagonals += $"\n {i}-діагональ {MaxSumDiagonals}";
+    }
+#endregion
+#region Сума елементів в тих стовпцях, які не містять від’ємних елементів
+for (int j = 0; j < columns; j++)
+{
+    FlagNegativeColumns = false;
+    SumColumns = 0;
+    for (int i = 0; i < rows; i++)
+    {
+        if (arr[i, j] < 0)
+        {
+            FlagNegativeColumns = true;
+            break;
+        }
+        else
+        {
+            SumColumns += arr[i, j];
+        }
+    }
+    if (!FlagNegativeColumns) OutSumColumns += $"\nColumn {j}, Sum={SumColumns}";
+}
+#endregion
+#region Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці
+int[] SumSecondDiagonals = new int[NumDiagonals];
+for (int i = 0; i < rows; i++)
+{
+    for (int j = 0; j < columns; j++)
+    {
+        SumSecondDiagonals[i + j + 1] += Math.Abs(arr[i, j]);
+    }
+}
+MinSumDiagonals = SumSecondDiagonals[NumDiagonals - 1];
+for (int i = 1; i < NumDiagonals; i++)
+    if (SumSecondDiagonals[i] <= MinSumDiagonals && i != columns)
+    {
+        if (SumSecondDiagonals[i] < MinSumDiagonals)
+        {
+            MinSumDiagonals = SumSecondDiagonals[i];
+            OutMinSumDiagonals = "";
+        }
+        OutMinSumDiagonals += $"\n {i}-діагональ {MinSumDiagonals}";
+    }
+#endregion
+#region Сума елементів в тих стовпцях, які  містять хоча б один від’ємний елемент
+for (int j = 0; j < columns; j++)
+{
+    FlagNegativeColumns = false;
+    SumColumns = 0;
+    for (int i = 0; i < rows; i++)
+    {
+        SumColumns += arr[i, j];
+        if (arr[i, j] < 0)
+        {
+            FlagNegativeColumns = true;
+        }
+    }
+    if (FlagNegativeColumns) OutSumNegativeColumns += $"\nColumn {j}, Sum={SumColumns}";
+}
+#endregion
 #region виведення результатів
-
 Console.WriteLine($"Кількість додатних елементів: {NumPositive}\n" +
 $"Максимальне із чисел, що зустрічається в заданій матриці більше одного разу: {MaxElement}\n" +
 $"Кількість рядків, які не містять жодного нульового елемента: {NumRowsNotNull}\n" +
 $"Кількість стовпців, які містять хоча б один нульовий елемент: {NumColumnsNull}\n" +
-$"Номер рядка, в якому знаходиться найдовша серія однакових елементів: {PosMaxSeries}\n" +
+$"Номер рядка, в якому знаходиться найдовша серія однакових елементів: {OutMaxSeries}\n" +
 $"Добуток елементів в тих рядках, які не містять від’ємних елементів: {MultiplicationRows}\n" +
-$"Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці: {111}\n" +
-$"Сума елементів в тих стовпцях, які не містять від’ємних елементів: {111}\n" +
-$"Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці: {11111}\n" +
-$"Сума елементів в тих стовпцях, які  містять хоча б один від’ємний елемент: {11111}\n" +
+$"Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриці: {OutMaxSumDiagonals}\n" +
+$"Сума елементів в тих стовпцях, які не містять від’ємних елементів: {OutSumColumns}\n" +
+$"Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці: {OutMinSumDiagonals}\n" +
+$"Сума елементів в тих стовпцях, які  містять хоча б один від’ємний елемент: {OutSumNegativeColumns}\n" +
 $"Транспонована матриця:\n" +
 "---");
 
