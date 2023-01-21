@@ -264,3 +264,33 @@ for (int i = 0; i < matrixWidth; i++)
 }
 
 Console.WriteLine($" { Math.Max(sumOfDiagonalsHeight.Max(), sumOfDiagonalsWidth.Max())} ");
+
+// Завдання 8
+// Для матриці N на M цілого типу визначити: суму елементів в тих стовпцях, які не містять від’ємних елементів;
+
+bool columHasANegativeElement = false;
+
+int sumElements = 0;
+
+for (int columnOne = 0; columnOne < matrixWidth; columnOne++)
+{
+    for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
+    {
+        if (matrix[lineOne, columnOne] < 0)
+        {
+            columHasANegativeElement = true;
+            break;
+        }
+    }
+    if (columHasANegativeElement)
+    {
+        columHasANegativeElement = false;
+        continue;
+    }
+    for (int lineOne = 0; lineOne < matrixHeight; lineOne++)
+    {
+        if (matrix[lineOne, columnOne] != 0) sumElements += matrix[lineOne, columnOne];
+    }
+
+}
+Console.WriteLine($"The count of rows without zero elements { sumElements} ");
