@@ -10,27 +10,37 @@ public class Task6
     public static void NoNegativeRows(int[,] matrix)
     {
         Console.WriteLine("Task 6:");
-        int multiply = 0, counter = 0;
-        for (int n = 0; n < matrix.GetLength(0); n++)
-        {
-            for (int m = 0; m < matrix.GetLength(1); m++)
+       int multiply = 1, counter = 0;
+            bool ok = true;
+            for (int n = 0; n < matrix.GetLength(0); n++)
             {
-                if (matrix[n, m] >= 0)
+                for (int m = 0; m < matrix.GetLength(1); m++)
                 {
-                    multiply *= matrix[n, m];
+                    if (matrix[n, m] > 0)
+                    {
+                        multiply *= matrix[n, m];
+                        ok = false;
+                    }
+                    else if (matrix[n, m] == 0)
+                    {
+                        multiply = 1;
+                        ok = false;
+                    }
+                    else 
+                    { ok = true;
+                        break;
+                    }
                 }
-                else break;
+                if (!ok)
+                {
+                    Console.WriteLine("Sum of elements {0} row: {1}", n + 1, multiply);
+                    counter++;
+                }
             }
-            if (multiply != 0)
+            if (counter == 0)
             {
-                Console.WriteLine("Sum of elements {0} columb: {1}", n + 1, multiply);
-                counter++;
+                Console.WriteLine("There are no rows which do not contain negative element!");
             }
-        }
-        if(counter==0)
-        {
-            Console.WriteLine("There are no rows which do not contain negative element!");
-        }
        
 
     }
