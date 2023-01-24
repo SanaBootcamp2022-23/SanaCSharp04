@@ -43,9 +43,24 @@ namespace Matrix
             return count;
         }
         //2-максимальне число яке повторюється
-        public static void MaxRepeatValue(int[,] matrix)
+        public static int MaxRepeatValue(int[,] matrix)
         {
-            
+            int[] toArray = new int[matrix.GetLength(0) * matrix.GetLength(1)];
+            int k = 0;
+            //перетворення двувимірного масиву в одновимірний для простішого пошуку елементу
+            for (int i=0; i<matrix.GetLength(0); i++)
+                for(int j=0; j<matrix.GetLength(1); j++) {
+                    toArray[k] = matrix[i, j];
+                    k++;
+                }
+            //знаходження елементів які повторюються
+            int[] repeatValue = new int[toArray.GetLength(0)];
+            for (int x = 0; x < toArray.GetLength(0); x++)
+                for (int y = x + 1; y < toArray.GetLength(0); y++)
+                    if (toArray[x] == toArray[y])
+                        repeatValue[x] = toArray[y];
+
+                return repeatValue.Max();
         }
 
         //3-кількість рядків без нульового елемента
@@ -82,6 +97,16 @@ namespace Matrix
             return count;
         }
 
+        //5-Номер рядка, в якому знаходиться найдовша серія однакових елементів
+        public static int rowNumberMaxRepeatElement(int[,] matrix)
+        {
+            int rowNumber=0;
+                
+
+
+            return rowNumber;
+        }
+
         //6-добуток елемнтів рядку в яких відсутні відємні елементи
         public static void MultColWithoutNegativeElement(int[,] matrix)
         {
@@ -99,9 +124,7 @@ namespace Matrix
                     }
 
                     if (j == matrix.GetLength(1) - 1)
-                    {
                         Console.WriteLine($"\tРядок {i + 1} з добутком {rowMult}");
-                    }
                 }
             }
         }
@@ -123,9 +146,7 @@ namespace Matrix
                     }
 
                     if (i == matrix.GetLength(0) - 1)
-                    {
                         Console.WriteLine($"\tСтовпець {j + 1} з сумою {colSum}");
-                    }
                 }
             }
         }
