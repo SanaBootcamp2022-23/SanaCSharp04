@@ -92,13 +92,14 @@ namespace Matrix
             //int[,] matrixTranspon = new int[matrix.GetLength(1), matrix.GetLength(0)];
             int[] vs = new int[matrix.GetLength(0)];
             int value;
-            int index;
+            int index=-1;
+            Console.WriteLine("|This MATRIX|");
             for (int line = 0; line < matrix.GetLength(0); line++)
             {
                 int[] gf = new int[matrix.GetLength(1)];
                 for (int column = 0; column < matrix.GetLength(1); column++)
                 {
-                    //Console.Write(matrix[line, column]+"\t");
+                    Console.Write(matrix[line, column]+"\t");
                     int count = 0;
                     for (int columnOne = 0; columnOne < matrix.GetLength(1); columnOne++)
                     {
@@ -107,22 +108,27 @@ namespace Matrix
                     gf[column] = count;
                 }
                 vs[line] = gf.Max();
-                //Console.WriteLine();
+                Console.WriteLine();
 
             }
             value = vs.Max();
             for (int i = 0; i < vs.Length; i++)
             {
                 if (vs[i] == value)
+                {
                     index = i;
+                    break;
+                }
+                    
             }
-            index = -1;
+            
             Console.WriteLine($"Number of the first row, which has the longest row of identical elements ={index}");
             return index;
         }
 
         static void MatrixTranspon(int[,] matrix)
         {
+            Console.WriteLine("| Matrix Transpon|");
             int[,] matrixTranspon = new int[matrix.GetLength(1), matrix.GetLength(0)];
 
             for (int column = 0; column < matrix.GetLength(1); column++)
