@@ -17,7 +17,7 @@ namespace Matrix
             Random random = new Random();
             for (int i = 0; i < matrix.GetLength(0); i++)
                 for (int j = 0; j < matrix.GetLength(1); j++)
-                    matrix[i, j] = random.Next(-2, 10);
+                    matrix[i, j] = random.Next(-1, 5);
             return matrix;
         }
         //вивід матриці в консоль
@@ -60,7 +60,7 @@ namespace Matrix
                     if (toArray[x] == toArray[y])
                         repeatValue[x] = toArray[y];
 
-                return repeatValue.Max();
+            return repeatValue.Max();
         }
 
         //3-кількість рядків без нульового елемента
@@ -68,15 +68,13 @@ namespace Matrix
         {
             int count = 0;
             for (int i = 0; i < matrix.GetLength(0); i++)
-            {
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     if (matrix[i, j] == 0)
-                break;
+                        break;
                     if (j + 1 == matrix.GetLength(1))
                         count++;
                 }
-            }
             return count;
         }
         //4-кількість стовпців з нульовим елементом
@@ -84,35 +82,42 @@ namespace Matrix
         {
             int count = 0;
             for (int j = 0; j < matrix.GetLength(1); j++)
-            {
                 for (int i = 0; i < matrix.GetLength(0); i++)
-                {
                     if (matrix[i, j] == 0)
                     {
                         count++;
                         break;
                     }
-                }
-            }
             return count;
         }
 
         //5-Номер рядка, в якому знаходиться найдовша серія однакових елементів
-        public static int rowNumberMaxRepeatElement(int[,] matrix)
+        public static int RowNumberMaxRepeatElement(int[,] matrix)
         {
-            int rowNumber=0;
-                
+            int rowIndex = int.MinValue, countEqual = 0, countMaxEqual = 1;
+            for (int i = 0; i < matrix.GetLength(0); i++)
+                for (int j = 0; j < matrix.GetLength(1) - 1; j++)
+                {
+                    if (matrix[i, j] == matrix[i, j + 1])
+                        countEqual++;
 
-
-            return rowNumber;
+                    if (countMaxEqual < countEqual)
+                    {
+                        countMaxEqual = countEqual;
+                        rowIndex = i+1;
+                    }
+                    else
+                        countEqual = 1;
+                }
+        return rowIndex;
         }
+
 
         //6-добуток елемнтів рядку в яких відсутні відємні елементи
         public static void MultColWithoutNegativeElement(int[,] matrix)
         {
             int rowMult = 1;
             for (int i = 0; i < matrix.GetLength(0); i++)
-            {
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     if (matrix[i, j] >= 0)
@@ -126,7 +131,6 @@ namespace Matrix
                     if (j == matrix.GetLength(1) - 1)
                         Console.WriteLine($"\tРядок {i + 1} з добутком {rowMult}");
                 }
-            }
         }
 
         //8-сума стовпців в яких відсутні відємні елементи
@@ -134,7 +138,6 @@ namespace Matrix
         {
             int colSum = 0;
             for (int j = 0; j < matrix.GetLength(1); j++)
-            {
                 for (int i = 0; i < matrix.GetLength(0); i++)
                 {
                     if (matrix[i, j] >= 0)
@@ -148,7 +151,6 @@ namespace Matrix
                     if (i == matrix.GetLength(0) - 1)
                         Console.WriteLine($"\tСтовпець {j + 1} з сумою {colSum}");
                 }
-            }
         }
 
         //10-сума стовпців в яких є відємні елементи
@@ -157,7 +159,6 @@ namespace Matrix
             int count = 0;
             int colSum = 0;
             for (int j = 0; j < matrix.GetLength(1); j++)
-            {
                 for (int i = 0; i < matrix.GetLength(0); i++)
                 {
                     if (matrix[i, j] < 0)
@@ -171,8 +172,8 @@ namespace Matrix
                     if (count != 0 && i == matrix.GetLength(0) - 1)
                         Console.WriteLine($"\tСтовпець {j + 1} з сумою {colSum}");
                 }
-            }
         }
+
         //11-транспонована матриця
         public static void TrasposedMatrix(int[,] matrix)
         {
