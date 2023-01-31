@@ -109,7 +109,7 @@ namespace Matrix
                     else
                         countEqual = 1;
                 }
-        return rowIndex;
+            return rowIndex;
         }
 
 
@@ -133,6 +133,44 @@ namespace Matrix
                 }
         }
 
+        //7-Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриц(поки тільки для квадтратни матриць)
+        public static int MaxSumParallelMainDiagonal(int[,] matrix)
+        {
+            int[] upperSum = new int[matrix.GetLength(0) + matrix.GetLength(1)];
+            int[] lowwerSum = new int[matrix.GetLength(0) + matrix.GetLength(1)];
+            int coordRow, coordCol;
+            for (int j = 1; j < matrix.GetLength(0); j++)
+            {
+                int sum = 0;
+                coordRow = 0;
+                coordCol = j;
+                for (int k = 0; k < matrix.GetLength(1) - j; k++)
+                {
+                    sum += matrix[coordRow, coordCol];
+                    coordCol++;
+                    coordRow++;
+                }
+                upperSum[j - 1] = sum;
+            }
+
+            for (int i = 1; i < matrix.GetLength(0); i++)
+            {
+                int sum = 0;
+                coordRow = i;
+                coordCol = 0;
+                for (int k = 0; k < matrix.GetLength(1) - i; k++)
+                {
+                    sum += matrix[coordRow, coordCol];
+                    coordCol++;
+                    coordRow++;
+                }
+                lowwerSum[i - 1] = sum;
+            }
+
+            return Math.Max(upperSum.Max(), lowwerSum.Max());
+        }
+
+
         //8-сума стовпців в яких відсутні відємні елементи
         public static void SumColWithoutNegativeElement(int[,] matrix)
         {
@@ -151,6 +189,43 @@ namespace Matrix
                     if (i == matrix.GetLength(0) - 1)
                         Console.WriteLine($"\tСтовпець {j + 1} з сумою {colSum}");
                 }
+        }
+
+        //9-Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці
+        public static int MinSumParallelSideDiagonal(int[,] matrix)
+        {
+            int[] upperSum = new int[matrix.GetLength(0) + matrix.GetLength(1)];
+            int[] lowwerSum = new int[matrix.GetLength(0) + matrix.GetLength(1)];
+            int coordRow, coordCol;
+            for (int j = 0; j < matrix.GetLength(0)-1; j++)
+            {
+                int sum = 0;
+                coordRow = 0;
+                coordCol = j;
+                for (int k = 0; k < matrix.GetLength(1) - j; k++)
+                {
+                    sum += matrix[coordRow, coordCol];
+                    coordCol++;
+                    coordRow++;
+                }
+                upperSum[j - 1] = sum;
+            }
+
+            for (int i = 1; i < matrix.GetLength(0); i++)
+            {
+                int sum = 0;
+                coordRow = i;
+                coordCol = 0;
+                for (int k = 0; k < matrix.GetLength(1) - i; k++)
+                {
+                    sum += matrix[coordRow, coordCol];
+                    coordCol++;
+                    coordRow++;
+                }
+                lowwerSum[i - 1] = sum;
+            }
+
+            return Math.Min(upperSum.Min(), lowwerSum.Min());
         }
 
         //10-сума стовпців в яких є відємні елементи
