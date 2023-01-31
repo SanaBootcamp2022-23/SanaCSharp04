@@ -133,7 +133,7 @@ namespace Matrix
                 }
         }
 
-        //7-Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриц(поки тільки для квадтратни матриць)
+        //7-Максимум серед сум елементів діагоналей, паралельних головній діагоналі матриц(тільки для квадтратни матриць)
         public static int MaxSumParallelMainDiagonal(int[,] matrix)
         {
             int[] upperSum = new int[matrix.GetLength(0) + matrix.GetLength(1)];
@@ -191,7 +191,7 @@ namespace Matrix
                 }
         }
 
-        //9-Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці
+        //9-Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці(тільки для квадратних матриць)
         public static int MinSumParallelSideDiagonal(int[,] matrix)
         {
             int[] upperSum = new int[matrix.GetLength(0)];
