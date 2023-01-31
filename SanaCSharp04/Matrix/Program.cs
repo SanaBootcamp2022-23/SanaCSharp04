@@ -50,7 +50,7 @@ Console.WriteLine($"7 - Максимум серед сум елементів д
 Console.WriteLine($"8 - Сума елементів в тих стовпцях, які не містять від’ємних елементів: ");
 MatrixActions.SumColWithoutNegativeElement(matrix);
 //9
-//Console.WriteLine($"9 - Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці: {MatrixActions.MinSumParallelSideDiagonal(matrix)}");
+Console.WriteLine($"9 - Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці: {MatrixActions.MinSumParallelSideDiagonal(matrix)}");
 //10
 Console.WriteLine($"10 - Сума елементів в тих стовпцях, які  містять хоча б один від’ємний елемент: ");
 MatrixActions.SumColWithNegativeElement(matrix);

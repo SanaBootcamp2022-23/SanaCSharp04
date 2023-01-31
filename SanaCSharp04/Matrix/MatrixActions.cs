@@ -194,37 +194,36 @@ namespace Matrix
         //9-Мінімум серед сум модулів елементів діагоналей, паралельних побічній діагоналі матриці
         public static int MinSumParallelSideDiagonal(int[,] matrix)
         {
-            int[] upperSum = new int[matrix.GetLength(0) + matrix.GetLength(1)];
-            int[] lowwerSum = new int[matrix.GetLength(0) + matrix.GetLength(1)];
+            int[] upperSum = new int[matrix.GetLength(0)];
+            int[] lowwerSum = new int[(matrix.GetLength(0)) - 1];
             int coordRow, coordCol;
-            for (int j = 0; j < matrix.GetLength(0)-1; j++)
+            for (int j = matrix.GetLength(1) - 1, i = 0; j >= 0; j--, i++)
             {
                 int sum = 0;
                 coordRow = 0;
                 coordCol = j;
-                for (int k = 0; k < matrix.GetLength(1) - j; k++)
+                for (int k = 0; k < matrix.GetLength(0) - i; k++)
                 {
-                    sum += matrix[coordRow, coordCol];
-                    coordCol++;
+                    sum += Math.Abs(matrix[coordRow, coordCol]);
                     coordRow++;
+                    coordCol--;
                 }
-                upperSum[j - 1] = sum;
+                upperSum[i] = sum;
             }
-
             for (int i = 1; i < matrix.GetLength(0); i++)
             {
                 int sum = 0;
                 coordRow = i;
-                coordCol = 0;
+                coordCol = matrix.GetLength(1) - 1;
                 for (int k = 0; k < matrix.GetLength(1) - i; k++)
                 {
-                    sum += matrix[coordRow, coordCol];
-                    coordCol++;
+                    sum += Math.Abs(matrix[coordRow, coordCol]);
                     coordRow++;
+                    coordCol--;
                 }
+
                 lowwerSum[i - 1] = sum;
             }
-
             return Math.Min(upperSum.Min(), lowwerSum.Min());
         }
 
