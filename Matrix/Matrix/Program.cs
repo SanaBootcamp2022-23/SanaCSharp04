@@ -44,7 +44,7 @@ namespace Matrix
             {
                 for(int j = 0; j < matrix.GetLength(1); j++)
                 {
-                    matrix[i, j] = random.Next(1, 10);
+                    matrix[i, j] = random.Next(-10, 10);
                 }
             }
 
@@ -62,7 +62,7 @@ namespace Matrix
             getCountPositiveElements(matrix);
             getMaxElementMoreOneTimes(matrix);
             getCountRowsWithoutZeroElement(matrix);
-            getCountColsWithoutZeroElement(matrix);
+            getCountColumnsWithZero(matrix);
             getRowWithLongestSeries(matrix);
             getProductOfNonNegativeRows(matrix);
             getMaxSumParallelToMainDiagonal(matrix);
@@ -161,33 +161,26 @@ namespace Matrix
 
         }
 
-        public static void getCountColsWithoutZeroElement(int[,] matrix)
+        public static void getCountColumnsWithZero(int[,] matrix)
         {
+            int rows = matrix.GetLength(0);
+            int columns = matrix.GetLength(1);
             int count = 0;
-            for (int i = 0; i < matrix.GetLength(0); i++)
+
+            for (int j = 0; j < columns; j++)
             {
-                int colSum = 0;
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (int i = 0; i < rows; i++)
                 {
                     if (matrix[i, j] == 0)
                     {
-                        colSum++;
+                        count++;
+                        Console.WriteLine("Стовпець {0} містить хоча б один нульовий елемент", j);
                         break;
                     }
                 }
-                if (colSum == 0)
-                {
-                    count++;
-                }
             }
-            if(count == 0)
-            {
-                Console.WriteLine("Відсутні нулі");
-            }
-            else
-            {
-                Console.WriteLine($"Кількість рядків, які не містять жодного нульового елемента: {count}");
-            }
+
+            Console.WriteLine("Сумарна кількість стовпців з хоча б одним нульовим елементом: {0}", count);
         }
 
         public static void getRowWithLongestSeries(int[,] matrix)
